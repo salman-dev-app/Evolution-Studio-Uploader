@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blogger Post Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#0f1115;
+  color:#e5e7eb;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  padding:20px;
+}
+.container{
+  max-width:1200px;
+  margin:auto;
+  background:#151821;
+  border-radius:18px;
+  padding:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,.5);
+}
+h1{text-align:center;margin-bottom:25px}
+
+label{color:#9ca3af;font-size:14px;margin-bottom:6px;display:block}
+.form-group{margin-bottom:20px}
+
+input,textarea,select{
+  width:100%;
+  background:#0f1115;
+  border:1px solid #262a36;
+  color:#fff;
+  padding:10px;
+  border-radius:8px;
+}
+textarea{resize:vertical}
+
+button{
+  background:#00e0ff;
+  color:#000;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+button:hover{opacity:.85}
+.btn-sm{font-size:12px;padding:6px 10px}
+.remove{background:#ff4d4d;color:#fff}
+
+.row{display:flex;gap:6px;margin-top:6px}
+.row input,.row select{flex:1}
+
+.episode-box{
+  border:1px solid #262a36;
+  padding:12px;
+  border-radius:12px;
+  margin-top:12px;
+}
+
+.server-box{
+  margin-left:15px;
+  margin-top:8px;
+  border-left:2px solid #262a36;
+  padding-left:10px;
+}
+
+.output{
+  background:#0b0d12;
+  border:1px solid #262a36;
+  border-radius:12px;
+  padding:15px;
+  font-family:monospace;
+  font-size:13px;
+  white-space:pre-wrap;
+  max-height:420px;
+  overflow:auto;
+}
+
+.loading{
+  color:#9ca3af;
+  display:none;
+  margin-left:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>🎬 Blogger Post Generator</h1>
+
+<!-- TMDB -->
+<div class="form-group">
+<label>TMDB</label>
+<div class="row">
+  <input id="tmdbId" placeholder="TMDB ID (e.g. 200875)">
+  <select id="tmdbType">
+    <option value="tv">TV</option>
+    <option value="movie">Movie</option>
+  </select>
+</div>
+</div>
+
+<button type="button" onclick="fetchFromTMDB()">Fetch from TMDB</button>
+<span class="loading" id="loading">Fetching…</span>
+
+<hr style="margin:25px 0;border:0;border-top:1px solid #262a36">
+
+<!-- BASIC -->
+<div class="form-group">
+<label>Poster URL</label>
+<input id="posterUrl">
+</div>
+
+<div class="form-group">
+<label>Description</label>
+<textarea id="description" rows="4"></textarea>
+</div>
+
+<!-- EPISODES -->
+<div class="form-group">
+<label>Episodes</label>
+<button type="button" class="btn-sm" onclick="addEpisode()">+ Add Episode</button>
+<div id="episodes"></div>
+</div>
+
+<button type="button" style="width:100%;margin-top:20px" onclick="generatePost()">Generate Blogger HTML</button>
+
+<div class="form-group">
+<label>Output (Copy to Blogger HTML)</label>
+<div class="output" id="output"></div>
+</div>
+</div>
+
+<script>
+let episodeCount = 0;
+let autoCast = []; // <-- TMDB cast stored here
+
+const loading = document.getElementById("loading");
+const episodesBox = document.getElementById("episodes");
+const output = document.getElementById("output");
+
+/* ===== TMDB FETCH (AUTO CAST) ===== */
+async function fetchFromTMDB(){
+  if(!tmdbId.value) return alert("TMDB ID required");
+  loading.style.display="inline";
+
+  try{
+    const r = await fetch(
+      `https://api.themoviedb.org/3/${tmdbType.value}/${tmdbId.value}?api_key=3de80e3c12383c5250000fd8aad71255&append_to_response=credits`
+    );
+    const d = await r.json();
+
+    posterUrl.value = d.poster_path
+      ? `https://image.tmdb.org/t/p/w500${d.poster_path}`
+      : "";
+
+    description.value = d.overview || "";
+
+    // AUTO CAST (TOP 8)
+    autoCast = [];
+    if(d.credits && d.credits.cast){
+      d.credits.cast.slice(0,8).forEach(c=>{
+        autoCast.push({
+          name: c.name,
+          photo: c.profile_path
+            ? `https://image.tmdb.org/t/p/w185${c.profile_path}`
+            : "",
+          title: c.character || ""
+        });
+      });
+    }
+
+  }catch(e){
+    alert("TMDB fetch failed");
+  }
+
+  loading.style.display="none";
+}
+
+/* ===== EPISODES ===== */
+function addEpisode(){
+  episodeCount++;
+  const id = episodeCount;
+
+  episodesBox.insertAdjacentHTML("beforeend",`
+  <div class="episode-box" id="episode_${id}">
+    <div class="row">
+      <input id="ep_${id}" placeholder="Episode (01)">
+      <input id="ep_thumb_${id}" placeholder="Thumb URL">
+      <button type="button" class="remove" onclick="this.closest('.episode-box').remove()">X</button>
+    </div>
+
+    <div class="server-box" id="servers_${id}">
+      <button type="button" class="btn-sm" onclick="addServer(${id})">+ Add Server</button>
+    </div>
+  </div>
+  `);
+}
+
+function addServer(epId){
+  document
+    .getElementById(`servers_${epId}`)
+    .insertAdjacentHTML("beforeend",`
+    <div class="row">
+      <input placeholder="Server Name (Vidsrc.to)">
+      <input placeholder="Embed URL">
+      <button type="button" class="remove" onclick="this.parentElement.remove()">X</button>
+    </div>
+  `);
+}
+
+/* ===== OUTPUT (ORIGINAL POST FORMAT + AUTO CAST) ===== */
+function generatePost(){
+
+  let html = '';
+
+  html += `<img alt="poster" src="${posterUrl.value}" />\n\n`;
+  html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
+  html += `<p>${description.value}</p>\n\n`;
+
+  html += `<script>\n`;
+  html += `const defaultThumbnail = '${posterUrl.value.replace("/w500/","/original/")}';\n\n`;
+
+  /* EPISODES */
+  html += `const episodes = [\n`;
+
+  for(let i=1;i<=episodeCount;i++){
+    const ep = document.getElementById(`ep_${i}`);
+    if(!ep) continue;
+
+    const thumb = document.getElementById(`ep_thumb_${i}`).value;
+    const servers = document.querySelectorAll(`#servers_${i} .row`);
+
+    html += `  {\n`;
+    html += `    episode: "${ep.value}",\n`;
+    html += `    thumb: "${thumb}",\n`;
+    html += `    videos: {\n`;
+
+    servers.forEach(r=>{
+      const inputs = r.querySelectorAll("input");
+      if(inputs.length===2 && inputs[0].value && inputs[1].value){
+        html += `      "${inputs[0].value}": "${inputs[1].value}",\n`;
+      }
+    });
+
+    html += `    }\n`;
+    html += `  },\n`;
+  }
+
+  html += `];\n\n`;
+
+  /* DOWNLOAD (FORMAT KEPT) */
+  html += `const downloads = [];\n\n`;
+
+  /* AUTO CAST */
+  html += `const celebrities = [\n`;
+  autoCast.forEach(c=>{
+    html += `  {name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
+  });
+  html += `];\n`;
+
+  html += `<\/script>`;
+
+  output.textContent = html;
+}
+</script>
+
+</body>
+  </html>
