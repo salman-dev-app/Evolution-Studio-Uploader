@@ -7,81 +7,148 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 body{
-  background:#0f1115;
+  background:#0b0f14;
   color:#e5e7eb;
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  padding:20px;
+  padding:16px;
 }
+
 .container{
-  max-width:1200px;
+  max-width:480px;
   margin:auto;
-  background:#151821;
-  border-radius:18px;
-  padding:25px;
-  box-shadow:0 20px 40px rgba(0,0,0,.5);
+  background:linear-gradient(180deg,#151a22,#0f141c);
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
 }
-h1{text-align:center;margin-bottom:25px}
 
-label{color:#9ca3af;font-size:14px;margin-bottom:6px;display:block}
-.form-group{margin-bottom:20px}
+h1{
+  text-align:center;
+  font-size:22px;
+  margin-bottom:22px;
+}
 
-input,textarea,select{
+/* ===== FORM ===== */
+.form-group{margin-bottom:18px}
+
+label{
+  display:block;
+  font-size:13px;
+  color:#9ca3af;
+  margin-bottom:6px;
+}
+
+input, textarea, select{
   width:100%;
-  background:#0f1115;
-  border:1px solid #262a36;
+  min-height:48px;
+  background:#0b0f14;
+  border:1px solid #1f2937;
   color:#fff;
-  padding:10px;
-  border-radius:8px;
+  padding:12px 14px;
+  border-radius:14px;
+  font-size:14px;
 }
-textarea{resize:vertical}
 
+textarea{
+  min-height:120px;
+  resize:none;
+}
+
+input:focus,textarea:focus,select:focus{
+  outline:none;
+  border-color:#22d3ee;
+  box-shadow:0 0 0 2px rgba(34,211,238,.15);
+}
+
+.row{
+  display:flex;
+  gap:10px;
+}
+
+/* ===== BUTTONS ===== */
 button{
-  background:#00e0ff;
+  width:100%;
+  min-height:48px;
+  background:linear-gradient(135deg,#22d3ee,#0ea5e9);
   color:#000;
   border:none;
-  padding:8px 14px;
-  border-radius:8px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:14px;
   cursor:pointer;
-  font-weight:600;
 }
-button:hover{opacity:.85}
-.btn-sm{font-size:12px;padding:6px 10px}
-.remove{background:#ff4d4d;color:#fff}
 
-.row{display:flex;gap:6px;margin-top:6px}
-.row input,.row select{flex:1}
+button:active{transform:scale(.97)}
 
+.btn-sm{
+  width:auto;
+  min-height:36px;
+  padding:6px 12px;
+  font-size:12px;
+}
+
+.remove{
+  background:#ef4444;
+  color:#fff;
+}
+
+/* ===== EPISODES ===== */
 .episode-box{
-  border:1px solid #262a36;
+  background:#0b0f14;
+  border:1px solid #1f2937;
+  border-radius:16px;
   padding:12px;
-  border-radius:12px;
-  margin-top:12px;
+  margin-top:14px;
 }
 
-.server-box{
-  margin-left:15px;
-  margin-top:8px;
-  border-left:2px solid #262a36;
+.server-box,.download-box{
+  margin-top:10px;
   padding-left:10px;
+  border-left:2px solid #1f2937;
 }
 
+.section-title{
+  font-size:12px;
+  color:#9ca3af;
+  margin-bottom:6px;
+}
+
+/* ===== OUTPUT ===== */
 .output{
-  background:#0b0d12;
-  border:1px solid #262a36;
-  border-radius:12px;
-  padding:15px;
+  background:#020617;
+  border:1px solid #1f2937;
+  border-radius:16px;
+  padding:14px;
   font-family:monospace;
-  font-size:13px;
-  white-space:pre-wrap;
-  max-height:420px;
+  font-size:12px;
+  min-height:160px;
+  max-height:280px;
   overflow:auto;
+  margin-top:10px;
+}
+
+.copy-status{
+  display:inline-block;
+  font-size:12px;
+  margin-left:8px;
+  color:#22d3ee;
 }
 
 .loading{
+  font-size:12px;
   color:#9ca3af;
   display:none;
-  margin-left:10px;
+  margin-left:8px;
+}
+
+/* ===== NEW SECTION ===== */
+.reuse-section {
+  border: 1px dashed #1f2937;
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 18px;
 }
 </style>
 </head>
@@ -91,24 +158,29 @@ button:hover{opacity:.85}
 <div class="container">
 <h1>🎬 Blogger Post Generator</h1>
 
+<!-- NEW: Paste Old Post Section -->
+<div class="reuse-section">
+  <div class="form-group">
+    <label>Paste Old Generated Post</label>
+    <textarea id="oldPost" placeholder="Paste previously generated Blogger HTML here..."></textarea>
+  </div>
+</div>
+
 <!-- TMDB -->
 <div class="form-group">
 <label>TMDB</label>
-<div class="row">
-  <input id="tmdbId" placeholder="TMDB ID (e.g. 200875)">
-  <select id="tmdbType">
-    <option value="tv">TV</option>
-    <option value="movie">Movie</option>
-  </select>
-</div>
+<input id="tmdbId" placeholder="TMDB ID">
+<select id="tmdbType" style="margin-top:10px">
+  <option value="tv">TV</option>
+  <option value="movie">Movie</option>
+</select>
 </div>
 
 <button type="button" onclick="fetchFromTMDB()">Fetch from TMDB</button>
 <span class="loading" id="loading">Fetching…</span>
 
-<hr style="margin:25px 0;border:0;border-top:1px solid #262a36">
+<hr style="margin:22px 0;border:0;border-top:1px solid #1f2937">
 
-<!-- BASIC -->
 <div class="form-group">
 <label>Poster URL</label>
 <input id="posterUrl">
@@ -116,36 +188,37 @@ button:hover{opacity:.85}
 
 <div class="form-group">
 <label>Description</label>
-<textarea id="description" rows="4"></textarea>
+<textarea id="description"></textarea>
 </div>
 
-<!-- EPISODES -->
 <div class="form-group">
 <label>Episodes</label>
 <button type="button" class="btn-sm" onclick="addEpisode()">+ Add Episode</button>
 <div id="episodes"></div>
 </div>
 
-<button type="button" style="width:100%;margin-top:20px" onclick="generatePost()">Generate Blogger HTML</button>
+<button type="button" onclick="generatePost()">Generate Blogger HTML</button>
 
 <div class="form-group">
 <label>Output (Copy to Blogger HTML)</label>
+<button type="button" class="btn-sm" onclick="copyOutput()">📋 Copy HTML</button>
+<span id="copyStatus" class="copy-status"></span>
 <div class="output" id="output"></div>
 </div>
 </div>
 
 <script>
 let episodeCount = 0;
-let autoCast = []; // <-- TMDB cast stored here
+let autoCast = [];
 
-const loading = document.getElementById("loading");
 const episodesBox = document.getElementById("episodes");
 const output = document.getElementById("output");
+const loading = document.getElementById("loading");
 
-/* ===== TMDB FETCH (AUTO CAST) ===== */
+/* ===== TMDB ===== */
 async function fetchFromTMDB(){
   if(!tmdbId.value) return alert("TMDB ID required");
-  loading.style.display="inline";
+  loading.style.display = "inline";
 
   try{
     const r = await fetch(
@@ -153,31 +226,23 @@ async function fetchFromTMDB(){
     );
     const d = await r.json();
 
-    posterUrl.value = d.poster_path
-      ? `https://image.tmdb.org/t/p/w500${d.poster_path}`
-      : "";
-
+    posterUrl.value = d.poster_path ? `https://image.tmdb.org/t/p/w500${d.poster_path}` : "";
     description.value = d.overview || "";
 
-    // AUTO CAST (TOP 8)
     autoCast = [];
-    if(d.credits && d.credits.cast){
-      d.credits.cast.slice(0,8).forEach(c=>{
-        autoCast.push({
-          name: c.name,
-          photo: c.profile_path
-            ? `https://image.tmdb.org/t/p/w185${c.profile_path}`
-            : "",
-          title: c.character || ""
-        });
+    d.credits?.cast?.slice(0,8).forEach(c=>{
+      autoCast.push({
+        name: c.name,
+        photo: c.profile_path ? `https://image.tmdb.org/t/p/w185${c.profile_path}` : "",
+        title: c.character || ""
       });
-    }
+    });
 
   }catch(e){
     alert("TMDB fetch failed");
   }
 
-  loading.style.display="none";
+  loading.style.display = "none";
 }
 
 /* ===== EPISODES ===== */
@@ -186,87 +251,279 @@ function addEpisode(){
   const id = episodeCount;
 
   episodesBox.insertAdjacentHTML("beforeend",`
-  <div class="episode-box" id="episode_${id}">
-    <div class="row">
-      <input id="ep_${id}" placeholder="Episode (01)">
-      <input id="ep_thumb_${id}" placeholder="Thumb URL">
-      <button type="button" class="remove" onclick="this.closest('.episode-box').remove()">X</button>
-    </div>
+  <div class="episode-box">
+    <input id="ep_${id}" placeholder="Episode (01)">
+    <input id="ep_thumb_${id}" placeholder="Thumb URL" style="margin-top:6px">
 
     <div class="server-box" id="servers_${id}">
-      <button type="button" class="btn-sm" onclick="addServer(${id})">+ Add Server</button>
+      <div class="section-title">Servers</div>
+      <button type="button" class="btn-sm" onclick="addServer(${id})">+ Server</button>
+    </div>
+
+    <div class="download-box" id="downloads_${id}">
+      <div class="section-title">Downloads</div>
+      <button type="button" class="btn-sm" onclick="addDownload(${id})">+ Download</button>
     </div>
   </div>
   `);
 }
 
-function addServer(epId){
-  document
-    .getElementById(`servers_${epId}`)
-    .insertAdjacentHTML("beforeend",`
+function addServer(id){
+  document.getElementById(`servers_${id}`).insertAdjacentHTML("beforeend",`
     <div class="row">
-      <input placeholder="Server Name (Vidsrc.to)">
+      <input placeholder="Server Name">
       <input placeholder="Embed URL">
-      <button type="button" class="remove" onclick="this.parentElement.remove()">X</button>
     </div>
   `);
 }
 
-/* ===== OUTPUT (ORIGINAL POST FORMAT + AUTO CAST) ===== */
-function generatePost(){
+function addDownload(id){
+  document.getElementById(`downloads_${id}`).insertAdjacentHTML("beforeend",`
+    <div class="row">
+      <input placeholder="Source">
+      <input placeholder="Quality">
+      <input placeholder="Size">
+      <input placeholder="Download URL">
+    </div>
+  `);
+}
 
-  let html = '';
+/* ===== HELPER: PARSE OLD POST ===== */
+function parseOldPost(rawHtml) {
+  const result = {
+    poster: "",
+    description: "",
+    episodes: [],
+    downloads: [],
+    celebrities: [],
+    prefix: "" // Content before the script
+  };
 
-  html += `<img alt="poster" src="${posterUrl.value}" />\n\n`;
-  html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
-  html += `<p>${description.value}</p>\n\n`;
+  if (!rawHtml) return result;
 
-  html += `<script>\n`;
-  html += `const defaultThumbnail = '${posterUrl.value.replace("/w500/","/original/")}';\n\n`;
-
-  /* EPISODES */
-  html += `const episodes = [\n`;
-
-  for(let i=1;i<=episodeCount;i++){
-    const ep = document.getElementById(`ep_${i}`);
-    if(!ep) continue;
-
-    const thumb = document.getElementById(`ep_thumb_${i}`).value;
-    const servers = document.querySelectorAll(`#servers_${i} .row`);
-
-    html += `  {\n`;
-    html += `    episode: "${ep.value}",\n`;
-    html += `    thumb: "${thumb}",\n`;
-    html += `    videos: {\n`;
-
-    servers.forEach(r=>{
-      const inputs = r.querySelectorAll("input");
-      if(inputs.length===2 && inputs[0].value && inputs[1].value){
-        html += `      "${inputs[0].value}": "${inputs[1].value}",\n`;
-      }
-    });
-
-    html += `    }\n`;
-    html += `  },\n`;
+  // Extract content before the script tag
+  const scriptIndex = rawHtml.indexOf("<script>");
+  if (scriptIndex !== -1) {
+    result.prefix = rawHtml.substring(0, scriptIndex);
   }
 
+  // Extract variables from script
+  try {
+    const episodeMatch = rawHtml.match(/const episodes=\[([\s\S]*?)\];/);
+    if (episodeMatch) {
+      // Use Function constructor to safely parse the array string if possible, 
+      // or simple regex if it's strictly formatted.
+      // For safety and robustness, we'll use a regex-based approach or a controlled eval
+      const content = episodeMatch[1].trim();
+      if (content) {
+        // This is a bit risky but given the controlled environment of the generator, 
+        // we can extract the objects.
+        const objects = content.split(/},\s*\n/).filter(s => s.trim());
+        objects.forEach(objStr => {
+           try {
+             const cleaned = (objStr.trim().endsWith('}') ? objStr.trim() : objStr.trim() + '}');
+             // Convert string representation to actual object
+             // Using a safer parsing approach for the specific format
+             const epMatch = cleaned.match(/episode:"(.*?)"/);
+             const thumbMatch = cleaned.match(/thumb:"(.*?)"/);
+             const videosMatch = cleaned.match(/videos:\{([\s\S]*?)\}/);
+             
+             if (epMatch) {
+               const videos = {};
+               if (videosMatch) {
+                 const vContent = videosMatch[1].trim();
+                 const vLines = vContent.split(',').filter(l => l.includes(':'));
+                 vLines.forEach(line => {
+                   const parts = line.split(':');
+                   const name = parts[0].trim().replace(/"/g, '');
+                   const url = parts.slice(1).join(':').trim().replace(/"/g, '').replace(/,$/, '');
+                   if (name && url) videos[name] = url;
+                 });
+               }
+               result.episodes.push({
+                 episode: epMatch[1],
+                 thumb: thumbMatch ? thumbMatch[1] : "",
+                 videos: videos
+               });
+             }
+           } catch(e) {}
+        });
+      }
+    }
+
+    const downloadMatch = rawHtml.match(/const downloads=\[([\s\S]*?)\];/);
+    if (downloadMatch) {
+      const content = downloadMatch[1].trim();
+      const objects = content.split(/},\s*\n/).filter(s => s.trim());
+      objects.forEach(objStr => {
+        try {
+          const cleaned = (objStr.trim().endsWith('}') ? objStr.trim() : objStr.trim() + '}');
+          const s = cleaned.match(/source:"(.*?)"/);
+          const q = cleaned.match(/quality:"(.*?)"/);
+          const sz = cleaned.match(/size:"(.*?)"/);
+          const u = cleaned.match(/url:"(.*?)"/);
+          if (s && u) {
+            result.downloads.push({
+              source: s[1],
+              quality: q ? q[1] : "",
+              size: sz ? sz[1] : "",
+              url: u[1]
+            });
+          }
+        } catch(e) {}
+      });
+    }
+
+    const celebMatch = rawHtml.match(/const celebrities=\[([\s\S]*?)\];/);
+    if (celebMatch) {
+      const content = celebMatch[1].trim();
+      const objects = content.split(/},\s*\n/).filter(s => s.trim());
+      objects.forEach(objStr => {
+        try {
+          const cleaned = (objStr.trim().endsWith('}') ? objStr.trim() : objStr.trim() + '}');
+          const n = cleaned.match(/name:"(.*?)"/);
+          const p = cleaned.match(/photo:"(.*?)"/);
+          const t = cleaned.match(/title:"(.*?)"/);
+          if (n) {
+            result.celebrities.push({
+              name: n[1],
+              photo: p ? p[1] : "",
+              title: t ? t[1] : ""
+            });
+          }
+        } catch(e) {}
+      });
+    }
+  } catch (e) {
+    console.error("Parsing failed", e);
+  }
+
+  return result;
+}
+
+/* ===== GENERATE POST ===== */
+function generatePost(){
+  const oldRaw = document.getElementById("oldPost").value.trim();
+  const oldData = parseOldPost(oldRaw);
+  
+  let html = "";
+
+  // If no old post, generate standard header
+  if (!oldRaw) {
+    html += `<img alt="poster" src="${posterUrl.value}" />\n\n`;
+    html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
+    html += `<p>${description.value}</p>\n\n`;
+  } else {
+    // Use the existing header content from old post
+    html += oldData.prefix;
+  }
+
+  html += `<script>\n`;
+  
+  // Handle defaultThumbnail
+  if (!oldRaw) {
+    html += `const defaultThumbnail='${posterUrl.value.replace("/w500/","/original/")}';\n\n`;
+  } else {
+    const thumbMatch = oldRaw.match(/const defaultThumbnail='(.*?)';/);
+    if (thumbMatch) {
+      html += `const defaultThumbnail='${thumbMatch[1]}';\n\n`;
+    } else {
+      html += `const defaultThumbnail='${posterUrl.value.replace("/w500/","/original/")}';\n\n`;
+    }
+  }
+
+  // Merge Episodes
+  html += `const episodes=[\n`;
+  // Add old episodes first
+  oldData.episodes.forEach(ep => {
+    html += `{episode:"${ep.episode}",thumb:"${ep.thumb}",videos:{`;
+    for (let srv in ep.videos) {
+      html += `"${srv}":"${ep.videos[srv]}",`;
+    }
+    html += `}},\n`;
+  });
+  // Add new episodes
+  for(let i=1;i<=episodeCount;i++){
+    const ep = document.getElementById(`ep_${i}`);
+    if(!ep || !ep.value) continue;
+
+    html += `{episode:"${ep.value}",thumb:"${document.getElementById(`ep_thumb_${i}`).value}",videos:{\n`;
+    document.querySelectorAll(`#servers_${i} .row`).forEach(r=>{
+      const v = r.querySelectorAll("input");
+      if(v[0].value && v[1].value){
+        html += `"${v[0].value}":"${v[1].value}",\n`;
+      }
+    });
+    html += `}},\n`;
+  }
   html += `];\n\n`;
 
-  /* DOWNLOAD (FORMAT KEPT) */
-  html += `const downloads = [];\n\n`;
-
-  /* AUTO CAST */
-  html += `const celebrities = [\n`;
-  autoCast.forEach(c=>{
-    html += `  {name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
+  // Merge Downloads
+  html += `const downloads=[\n`;
+  // Add old downloads
+  oldData.downloads.forEach(d => {
+    html += `{source:"${d.source}",quality:"${d.quality}",size:"${d.size}",url:"${d.url}"},\n`;
   });
-  html += `];\n`;
+  // Add new downloads
+  for(let i=1;i<=episodeCount;i++){
+    document.querySelectorAll(`#downloads_${i} .row`).forEach(r=>{
+      const d = r.querySelectorAll("input");
+      if(d[0].value && d[3].value){
+        html += `{source:"${d[0].value}",quality:"${d[1].value}",size:"${d[2].value}",url:"${d[3].value}"},\n`;
+      }
+    });
+  }
+  html += `];\n\n`;
 
-  html += `<\/script>`;
+  // Merge Celebrities
+  html += `const celebrities=[\n`;
+  // Add old celebrities
+  oldData.celebrities.forEach(c => {
+    html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
+  });
+  // Add new celebrities (only if not already in old list to avoid duplicates)
+  autoCast.forEach(c=>{
+    const exists = oldData.celebrities.some(oc => oc.name === c.name);
+    if (!exists) {
+      html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
+    }
+  });
+  html += `];\n<\/script>`;
 
   output.textContent = html;
+}
+
+/* ===== ANDROID-SAFE COPY ===== */
+function copyOutput(){
+  const text = output.textContent;
+  const status = document.getElementById("copyStatus");
+
+  if(!text.trim()){
+    status.textContent = "Nothing to copy";
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly","");
+  textarea.style.position="absolute";
+  textarea.style.left="-9999px";
+
+  document.body.appendChild(textarea);
+  textarea.select();
+  textarea.setSelectionRange(0, textarea.value.length);
+
+  try{
+    document.execCommand("copy");
+    status.textContent = "Copied!";
+  }catch(e){
+    status.textContent = "Copy failed";
+  }
+
+  document.body.removeChild(textarea);
+  setTimeout(()=>status.textContent="",1500);
 }
 </script>
 
 </body>
-  </html>
+</html>
