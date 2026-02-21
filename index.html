@@ -2,209 +2,274 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Evolution Studio</title>
+<title>Evolution Studio Pro</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+    :root {
+        --bg-body: #0f172a;
+        --bg-card: #1e293b;
+        --bg-input: #334155;
+        --primary: #22d3ee; /* Cyan from your original, adapted */
+        --primary-dark: #0ea5e9;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #475569;
+        --danger: #ef4444;
+        --success: #10b981;
+        --radius: 12px;
+        --h-input: 45px;
+    }
 
-body{
-  background:#0b0f14;
-  color:#e5e7eb;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  padding:16px;
-}
+    * { box-sizing: border-box; outline: none; }
 
-.container{
-  max-width:480px;
-  margin:auto;
-  background:linear-gradient(180deg,#151a22,#0f141c);
-  border-radius:22px;
-  padding:20px;
-  box-shadow:0 20px 50px rgba(0,0,0,.6);
-}
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        margin: 0;
+        padding: 40px 20px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
 
-h1{
-  text-align:center;
-  font-size:22px;
-  margin-bottom:22px;
-}
+    /* --- LAYOUT --- */
+    .container {
+        max-width: 900px; /* Slightly wider for the content */
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
 
-/* ===== FORM ===== */
-.form-group{margin-bottom:18px}
+    /* --- CARDS --- */
+    .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 
-label{
-  display:block;
-  font-size:13px;
-  color:#9ca3af;
-  margin-bottom:6px;
-}
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 5px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border);
+        color: white;
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .card-header i { color: var(--primary); font-size: 1.4rem; }
 
-input, textarea, select{
-  width:100%;
-  min-height:48px;
-  background:#0b0f14;
-  border:1px solid #1f2937;
-  color:#fff;
-  padding:12px 14px;
-  border-radius:14px;
-  font-size:14px;
-}
+    /* --- INPUTS --- */
+    label {
+        display: block;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+    }
 
-textarea{
-  min-height:120px;
-  resize:none;
-}
+    input, select, textarea {
+        width: 100%;
+        height: var(--h-input);
+        background: var(--bg-input);
+        border: 1px solid transparent;
+        color: white;
+        padding: 0 15px;
+        border-radius: var(--radius);
+        font-family: inherit;
+        font-size: 0.95rem;
+        transition: all 0.2s;
+    }
 
-input:focus,textarea:focus,select:focus{
-  outline:none;
-  border-color:#22d3ee;
-  box-shadow:0 0 0 2px rgba(34,211,238,.15);
-}
+    textarea { height: auto; min-height: 120px; padding: 12px; resize: vertical; }
 
-.row{
-  display:flex;
-  gap:10px;
-}
+    input:focus, select:focus, textarea:focus {
+        border-color: var(--primary);
+        background: #1e293b;
+        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+    }
 
-/* ===== BUTTONS ===== */
-button{
-  width:100%;
-  min-height:48px;
-  background:linear-gradient(135deg,#22d3ee,#0ea5e9);
-  color:#000;
-  border:none;
-  border-radius:14px;
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer;
-}
+    /* --- BUTTONS --- */
+    button {
+        height: var(--h-input);
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+    }
+    button:active { transform: translateY(1px); }
 
-button:active{transform:scale(.97)}
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #0f172a; }
+    .btn-primary:hover { opacity: 0.9; }
+    
+    .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+    .btn-secondary:hover { background: var(--bg-input); color: white; border-color: var(--text-muted); }
+    
+    .btn-icon { width: var(--h-input); padding: 0; font-size: 1.2rem; flex-shrink: 0; }
+    .btn-sm { height: 36px; font-size: 0.8rem; padding: 0 15px; }
+    
+    .btn-success { background: var(--success); color: #0f172a; }
 
-.btn-sm{
-  width:auto;
-  min-height:36px;
-  padding:6px 12px;
-  font-size:12px;
-}
+    /* --- UTILITIES --- */
+    .row { display: flex; gap: 12px; }
+    .col { flex: 1; }
+    .align-center { align-items: center; }
 
-.remove{
-  background:#ef4444;
-  color:#fff;
-}
+    /* --- IMPORT BAR --- */
+    .import-bar {
+        background: #111827;
+        border: 1px dashed var(--border);
+        padding: 15px 20px;
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 5px;
+    }
+    .import-bar textarea { 
+        background: transparent; border: none; height: 40px; min-height: 40px; 
+        padding: 8px 0; resize: none; overflow: hidden;
+    }
+    .import-bar textarea:focus { box-shadow: none; }
 
-/* ===== EPISODES ===== */
-.episode-box{
-  background:#0b0f14;
-  border:1px solid #1f2937;
-  border-radius:16px;
-  padding:12px;
-  margin-top:14px;
-}
+    /* --- DYNAMIC LISTS --- */
+    .list-item {
+        background: #232d42;
+        padding: 15px;
+        border-radius: var(--radius);
+        margin-top: 15px;
+        border: 1px solid rgba(255,255,255,0.05);
+        animation: fadeIn 0.2s ease;
+    }
+    .sub-section {
+        margin-top: 10px;
+        padding-left: 15px;
+        border-left: 2px solid var(--border);
+    }
+    .section-title {
+        font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; 
+        font-weight: 700; margin-bottom: 8px; margin-top: 12px; display: flex; align-items: center; gap: 5px;
+    }
 
-.server-box,.download-box{
-  margin-top:10px;
-  padding-left:10px;
-  border-left:2px solid #1f2937;
-}
+    /* --- OUTPUT --- */
+    #output {
+        font-family: 'Consolas', monospace;
+        font-size: 12px;
+        color: #e2e8f0;
+        background: #0f172a;
+        border: 1px solid var(--border);
+        min-height: 200px;
+    }
+    #loading { color: var(--primary); font-size: 0.85rem; display: none; margin-left: 10px; font-weight: 600;}
+    #copyStatus { color: var(--success); font-size: 0.85rem; margin-left: 10px; font-weight: 600;}
 
-.section-title{
-  font-size:12px;
-  color:#9ca3af;
-  margin-bottom:6px;
-}
-
-/* ===== OUTPUT ===== */
-.output{
-  background:#020617;
-  border:1px solid #1f2937;
-  border-radius:16px;
-  padding:14px;
-  font-family:monospace;
-  font-size:12px;
-  min-height:160px;
-  max-height:280px;
-  overflow:auto;
-  margin-top:10px;
-}
-
-.copy-status{
-  display:inline-block;
-  font-size:12px;
-  margin-left:8px;
-  color:#22d3ee;
-}
-
-.loading{
-  font-size:12px;
-  color:#9ca3af;
-  display:none;
-  margin-left:8px;
-}
-
-/* ===== NEW SECTION ===== */
-.reuse-section {
-  border: 1px dashed #1f2937;
-  border-radius: 16px;
-  padding: 12px;
-  margin-bottom: 18px;
-}
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 
 <body>
 
 <div class="container">
-<h1>Evolution Studio</h1>
 
-<!-- NEW: Paste Old Post Section -->
-<div class="reuse-section">
-  <div class="form-group">
-    <label>Paste Old Generated Post</label>
-    <textarea id="oldPost" placeholder="Paste previously generated Blogger HTML here..."></textarea>
-  </div>
-</div>
+    <!-- 1. IMPORT SECTION -->
+    <div class="import-bar">
+        <i class='bx bx-edit' style="font-size:1.5rem; color:var(--primary)"></i>
+        <div style="flex:1">
+            <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Edit Old Post</div>
+            <textarea id="oldPost" placeholder="Paste previously generated HTML here..."></textarea>
+        </div>
+    </div>
 
-<!-- TMDB -->
-<div class="form-group">
-<label>TMDB</label>
-<input id="tmdbId" placeholder="TMDB ID">
-<select id="tmdbType" style="margin-top:10px">
-  <option value="tv">TV</option>
-  <option value="movie">Movie</option>
-</select>
-</div>
+    <!-- 2. MAIN DATA -->
+    <div class="card">
+        <div class="card-header"><i class='bx bxs-data'></i> TMDB & Details</div>
+        
+        <div class="row">
+            <div style="flex: 2;">
+                <label>TMDB ID</label>
+                <div class="row">
+                    <input id="tmdbId" placeholder="e.g. 1399">
+                    <select id="tmdbType" style="flex: 0 0 100px;">
+                        <option value="tv">TV</option>
+                        <option value="movie">Movie</option>
+                    </select>
+                </div>
+            </div>
+            <div style="flex: 1; display: flex; align-items: flex-end;">
+                <button type="button" onclick="fetchFromTMDB()" class="btn-secondary" style="width: 100%;">
+                    <i class='bx bx-cloud-download'></i> Fetch Info
+                </button>
+            </div>
+        </div>
+        <span id="loading"><i class='bx bx-loader-alt bx-spin'></i> Fetching...</span>
 
-<button type="button" onclick="fetchFromTMDB()">Fetch from TMDB</button>
-<span class="loading" id="loading">Fetching…</span>
+        <hr style="border: 0; border-top: 1px solid var(--border); margin: 5px 0;">
 
-<hr style="margin:22px 0;border:0;border-top:1px solid #1f2937">
+        <div>
+            <label>Poster URL</label>
+            <input id="posterUrl" placeholder="https://...">
+        </div>
 
-<div class="form-group">
-<label>Poster URL</label>
-<input id="posterUrl">
-</div>
+        <div>
+            <label>Description</label>
+            <textarea id="description"></textarea>
+        </div>
+    </div>
 
-<div class="form-group">
-<label>Description</label>
-<textarea id="description"></textarea>
-</div>
+    <!-- 3. EPISODES -->
+    <div class="card">
+        <div class="card-header">
+            <i class='bx bxs-playlist'></i> Episodes & Content
+            <button type="button" class="btn-primary btn-sm" onclick="addEpisode()" style="margin-left: auto;">
+                <i class='bx bx-plus'></i> Add Episode
+            </button>
+        </div>
+        
+        <div id="episodes"></div>
+    </div>
 
-<div class="form-group">
-<label>Episodes</label>
-<button type="button" class="btn-sm" onclick="addEpisode()">+ Add Episode</button>
-<div id="episodes"></div>
-</div>
+    <!-- 4. EXPORT -->
+    <div class="card">
+        <div class="card-header"><i class='bx bxs-code-alt'></i> Generate & Output</div>
+        
+        <button type="button" onclick="generatePost()" class="btn-primary">
+            <i class='bx bx-cog'></i> Generate Blogger HTML
+        </button>
 
-<button type="button" onclick="generatePost()">Generate Blogger HTML</button>
+        <div style="position: relative;">
+            <div class="row align-center" style="margin-bottom: 10px; justify-content: space-between;">
+                <label style="margin:0">Output Code</label>
+                <div>
+                    <span id="copyStatus"></span>
+                    <button type="button" class="btn-success btn-sm" onclick="copyOutput()">
+                        <i class='bx bx-copy'></i> Copy HTML
+                    </button>
+                </div>
+            </div>
+            <div id="output" class="output"></div>
+        </div>
+    </div>
 
-<div class="form-group">
-<label>Output (Copy to Blogger HTML)</label>
-<button type="button" class="btn-sm" onclick="copyOutput()">📋 Copy HTML</button>
-<span id="copyStatus" class="copy-status"></span>
-<div class="output" id="output"></div>
-</div>
 </div>
 
 <script>
@@ -218,7 +283,7 @@ const loading = document.getElementById("loading");
 /* ===== TMDB ===== */
 async function fetchFromTMDB(){
   if(!tmdbId.value) return alert("TMDB ID required");
-  loading.style.display = "inline";
+  loading.style.display = "inline-block";
 
   try{
     const r = await fetch(
@@ -245,50 +310,81 @@ async function fetchFromTMDB(){
   loading.style.display = "none";
 }
 
-/* ===== EPISODES ===== */
+/* ===== EPISODES (UPDATED UI) ===== */
 function addEpisode(){
   episodeCount++;
   const id = episodeCount;
 
+  // Inserting Premium UI Structure
   episodesBox.insertAdjacentHTML("beforeend",`
-  <div class="episode-box">
-    <input id="ep_${id}" placeholder="Episode (01)">
-    <input id="ep_thumb_${id}" placeholder="Thumb URL" style="margin-top:6px">
-
-    <div class="server-box" id="servers_${id}">
-      <div class="section-title">Servers</div>
-      <button type="button" class="btn-sm" onclick="addServer(${id})">+ Server</button>
+  <div class="list-item">
+    <div class="row">
+        <div style="flex:1">
+            <label>Episode Number</label>
+            <input id="ep_${id}" placeholder="01">
+        </div>
+        <div style="flex:2">
+            <label>Thumbnail URL</label>
+            <input id="ep_thumb_${id}" placeholder="https://...">
+        </div>
     </div>
 
-    <div class="download-box" id="downloads_${id}">
-      <div class="section-title">Downloads</div>
-      <button type="button" class="btn-sm" onclick="addDownload(${id})">+ Download</button>
+    <div class="sub-section" id="servers_${id}">
+      <div class="section-title"><i class='bx bx-server'></i> Streaming Servers</div>
+      <!-- Server Container -->
+      <button type="button" class="btn-secondary btn-sm" onclick="addServer(${id})" style="width:100%; margin-top:5px;">
+        <i class='bx bx-plus'></i> Add Server
+      </button>
+    </div>
+
+    <div class="sub-section" id="downloads_${id}">
+      <div class="section-title"><i class='bx bx-download'></i> Downloads</div>
+      <!-- Download Container -->
+      <button type="button" class="btn-secondary btn-sm" onclick="addDownload(${id})" style="width:100%; margin-top:5px;">
+        <i class='bx bx-plus'></i> Add Download
+      </button>
     </div>
   </div>
   `);
 }
 
 function addServer(id){
-  document.getElementById(`servers_${id}`).insertAdjacentHTML("beforeend",`
-    <div class="row">
-      <input placeholder="Server Name">
-      <input placeholder="Embed URL">
-    </div>
-  `);
+  const container = document.getElementById(`servers_${id}`);
+  const btn = container.querySelector('button'); // Get button to insert before it
+  
+  const div = document.createElement('div');
+  div.className = 'row';
+  div.style.marginTop = '8px';
+  div.innerHTML = `
+      <input placeholder="Server Name" style="flex:1">
+      <input placeholder="Embed URL" style="flex:2">
+      <button type="button" class="btn-secondary btn-icon" onclick="this.parentElement.remove()" title="Remove">
+        <i class='bx bx-x'></i>
+      </button>
+  `;
+  container.insertBefore(div, btn);
 }
 
 function addDownload(id){
-  document.getElementById(`downloads_${id}`).insertAdjacentHTML("beforeend",`
-    <div class="row">
-      <input placeholder="Source">
-      <input placeholder="Quality">
-      <input placeholder="Size">
-      <input placeholder="Download URL">
-    </div>
-  `);
+  const container = document.getElementById(`downloads_${id}`);
+  const btn = container.querySelector('button');
+
+  const div = document.createElement('div');
+  div.className = 'row';
+  div.style.marginTop = '8px';
+  div.innerHTML = `
+      <input placeholder="Source" style="flex:1">
+      <input placeholder="Quality" style="width:80px">
+      <input placeholder="Size" style="width:80px">
+      <input placeholder="URL" style="flex:2">
+      <button type="button" class="btn-secondary btn-icon" onclick="this.parentElement.remove()" title="Remove">
+        <i class='bx bx-x'></i>
+      </button>
+  `;
+  container.insertBefore(div, btn);
 }
 
-/* ===== HELPER: PARSE OLD POST ===== */
+/* ===== HELPER: PARSE OLD POST (UNCHANGED LOGIC) ===== */
 function parseOldPost(rawHtml) {
   const result = {
     poster: "",
@@ -296,34 +392,25 @@ function parseOldPost(rawHtml) {
     episodes: [],
     downloads: [],
     celebrities: [],
-    prefix: "" // Content before the script
+    prefix: "" 
   };
 
   if (!rawHtml) return result;
 
-  // Extract content before the script tag
   const scriptIndex = rawHtml.indexOf("<script>");
   if (scriptIndex !== -1) {
     result.prefix = rawHtml.substring(0, scriptIndex);
   }
 
-  // Extract variables from script
   try {
     const episodeMatch = rawHtml.match(/const episodes=\[([\s\S]*?)\];/);
     if (episodeMatch) {
-      // Use Function constructor to safely parse the array string if possible, 
-      // or simple regex if it's strictly formatted.
-      // For safety and robustness, we'll use a regex-based approach or a controlled eval
       const content = episodeMatch[1].trim();
       if (content) {
-        // This is a bit risky but given the controlled environment of the generator, 
-        // we can extract the objects.
         const objects = content.split(/},\s*\n/).filter(s => s.trim());
         objects.forEach(objStr => {
            try {
              const cleaned = (objStr.trim().endsWith('}') ? objStr.trim() : objStr.trim() + '}');
-             // Convert string representation to actual object
-             // Using a safer parsing approach for the specific format
              const epMatch = cleaned.match(/episode:"(.*?)"/);
              const thumbMatch = cleaned.match(/thumb:"(.*?)"/);
              const videosMatch = cleaned.match(/videos:\{([\s\S]*?)\}/);
@@ -401,26 +488,23 @@ function parseOldPost(rawHtml) {
   return result;
 }
 
-/* ===== GENERATE POST ===== */
+/* ===== GENERATE POST (UNCHANGED LOGIC) ===== */
 function generatePost(){
   const oldRaw = document.getElementById("oldPost").value.trim();
   const oldData = parseOldPost(oldRaw);
   
   let html = "";
 
-  // If no old post, generate standard header
   if (!oldRaw) {
     html += `<img alt="poster" src="${posterUrl.value}" />\n\n`;
     html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
     html += `<p>${description.value}</p>\n\n`;
   } else {
-    // Use the existing header content from old post
     html += oldData.prefix;
   }
 
   html += `<script>\n`;
   
-  // Handle defaultThumbnail
   if (!oldRaw) {
     html += `const defaultThumbnail='${posterUrl.value.replace("/w500/","/original/")}';\n\n`;
   } else {
@@ -432,9 +516,8 @@ function generatePost(){
     }
   }
 
-  // Merge Episodes
   html += `const episodes=[\n`;
-  // Add old episodes first
+  // Add old episodes
   oldData.episodes.forEach(ep => {
     html += `{episode:"${ep.episode}",thumb:"${ep.thumb}",videos:{`;
     for (let srv in ep.videos) {
@@ -445,20 +528,22 @@ function generatePost(){
   // Add new episodes
   for(let i=1;i<=episodeCount;i++){
     const ep = document.getElementById(`ep_${i}`);
-    if(!ep || !ep.value) continue;
+    if(!ep || !ep.value) continue; // Check if element exists/removed
 
     html += `{episode:"${ep.value}",thumb:"${document.getElementById(`ep_thumb_${i}`).value}",videos:{\n`;
-    document.querySelectorAll(`#servers_${i} .row`).forEach(r=>{
-      const v = r.querySelectorAll("input");
-      if(v[0].value && v[1].value){
-        html += `"${v[0].value}":"${v[1].value}",\n`;
-      }
-    });
+    const serverContainer = document.getElementById(`servers_${i}`);
+    if(serverContainer) {
+        serverContainer.querySelectorAll(".row").forEach(r=>{
+            const v = r.querySelectorAll("input");
+            if(v.length >= 2 && v[0].value && v[1].value){
+                html += `"${v[0].value}":"${v[1].value}",\n`;
+            }
+        });
+    }
     html += `}},\n`;
   }
   html += `];\n\n`;
 
-  // Merge Downloads
   html += `const downloads=[\n`;
   // Add old downloads
   oldData.downloads.forEach(d => {
@@ -466,22 +551,22 @@ function generatePost(){
   });
   // Add new downloads
   for(let i=1;i<=episodeCount;i++){
-    document.querySelectorAll(`#downloads_${i} .row`).forEach(r=>{
-      const d = r.querySelectorAll("input");
-      if(d[0].value && d[3].value){
-        html += `{source:"${d[0].value}",quality:"${d[1].value}",size:"${d[2].value}",url:"${d[3].value}"},\n`;
-      }
-    });
+    const dlContainer = document.getElementById(`downloads_${i}`);
+    if(dlContainer) {
+        dlContainer.querySelectorAll(".row").forEach(r=>{
+            const d = r.querySelectorAll("input");
+            if(d.length >= 4 && d[0].value && d[3].value){
+                html += `{source:"${d[0].value}",quality:"${d[1].value}",size:"${d[2].value}",url:"${d[3].value}"},\n`;
+            }
+        });
+    }
   }
   html += `];\n\n`;
 
-  // Merge Celebrities
   html += `const celebrities=[\n`;
-  // Add old celebrities
   oldData.celebrities.forEach(c => {
     html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
   });
-  // Add new celebrities (only if not already in old list to avoid duplicates)
   autoCast.forEach(c=>{
     const exists = oldData.celebrities.some(oc => oc.name === c.name);
     if (!exists) {
@@ -493,7 +578,7 @@ function generatePost(){
   output.textContent = html;
 }
 
-/* ===== ANDROID-SAFE COPY ===== */
+/* ===== COPY ===== */
 function copyOutput(){
   const text = output.textContent;
   const status = document.getElementById("copyStatus");
