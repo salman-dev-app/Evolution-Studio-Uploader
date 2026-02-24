@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Evolution Studio Pro</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evolution Studio Pro</title>
 <!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -13,14 +13,14 @@
         --bg-body: #0f172a;
         --bg-card: #1e293b;
         --bg-input: #334155;
-        --primary: #22d3ee; /* Cyan from your original, adapted */
-        --primary-dark: #0ea5e9;
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
         --text-main: #f8fafc;
         --text-muted: #94a3b8;
         --border: #475569;
         --danger: #ef4444;
         --success: #10b981;
-        --radius: 12px;
+        --radius: 8px;
         --h-input: 45px;
     }
 
@@ -36,32 +36,37 @@
         line-height: 1.5;
     }
 
-    /* --- LAYOUT --- */
+    /* --- LAYOUT GRID --- */
     .container {
-        max-width: 900px; /* Slightly wider for the content */
+        max-width: 1400px;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr 1fr; /* 3 Equal Columns */
         gap: 25px;
+        align-items: start;
     }
+
+    @media (max-width: 1200px) { .container { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 800px) { .container { grid-template-columns: 1fr; } }
 
     /* --- CARDS --- */
     .card {
         background: var(--bg-card);
         border: 1px solid var(--border);
-        border-radius: var(--radius);
+        border-radius: 12px;
         padding: 24px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         display: flex;
         flex-direction: column;
         gap: 16px;
+        position: relative;
     }
 
     .card-header {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         padding-bottom: 15px;
         border-bottom: 1px solid var(--border);
         color: white;
@@ -72,7 +77,9 @@
     }
     .card-header i { color: var(--primary); font-size: 1.4rem; }
 
-    /* --- INPUTS --- */
+    /* --- INPUTS & BUTTONS --- */
+    .form-group { position: relative; }
+    
     label {
         display: block;
         color: var(--text-muted);
@@ -82,82 +89,108 @@
         text-transform: uppercase;
     }
 
-    input, select, textarea {
+    input, select, textarea, button {
         width: 100%;
-        height: var(--h-input);
-        background: var(--bg-input);
-        border: 1px solid transparent;
-        color: white;
-        padding: 0 15px;
         border-radius: var(--radius);
         font-family: inherit;
         font-size: 0.95rem;
         transition: all 0.2s;
     }
 
-    textarea { height: auto; min-height: 120px; padding: 12px; resize: vertical; }
+    input, select, button { height: var(--h-input); }
+
+    input, select, textarea {
+        background: var(--bg-input);
+        border: 1px solid transparent;
+        color: white;
+        padding: 0 15px;
+    }
 
     input:focus, select:focus, textarea:focus {
         border-color: var(--primary);
         background: #1e293b;
-        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
     }
 
-    /* --- BUTTONS --- */
+    textarea { padding: 12px; min-height: 100px; resize: vertical; }
+
+    /* --- BUTTON STYLES --- */
     button {
-        height: var(--h-input);
         border: none;
-        border-radius: var(--radius);
         cursor: pointer;
         font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
-        font-size: 0.9rem;
-        transition: all 0.2s;
     }
+    
     button:active { transform: translateY(1px); }
 
-    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #0f172a; }
-    .btn-primary:hover { opacity: 0.9; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
     
     .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
     .btn-secondary:hover { background: var(--bg-input); color: white; border-color: var(--text-muted); }
     
-    .btn-icon { width: var(--h-input); padding: 0; font-size: 1.2rem; flex-shrink: 0; }
-    .btn-sm { height: 36px; font-size: 0.8rem; padding: 0 15px; }
+    .btn-icon { width: var(--h-input); flex-shrink: 0; padding: 0; font-size: 1.2rem; }
     
     .btn-success { background: var(--success); color: #0f172a; }
+    .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+    .btn-danger:hover { background: var(--danger); color: white; }
 
-    /* --- UTILITIES --- */
+    /* --- FLEX UTILITIES --- */
     .row { display: flex; gap: 12px; }
     .col { flex: 1; }
     .align-center { align-items: center; }
 
-    /* --- IMPORT BAR --- */
+    /* --- SPECIFIC COMPONENTS --- */
+    
+    /* 1. Import Bar */
     .import-bar {
+        max-width: 1400px;
+        margin: 0 auto 30px auto;
         background: #111827;
         border: 1px dashed var(--border);
         padding: 15px 20px;
-        border-radius: var(--radius);
+        border-radius: 12px;
         display: flex;
         align-items: center;
         gap: 15px;
-        margin-bottom: 5px;
     }
-    .import-bar textarea { 
-        background: transparent; border: none; height: 40px; min-height: 40px; 
-        padding: 8px 0; resize: none; overflow: hidden;
-    }
-    .import-bar textarea:focus { box-shadow: none; }
+    .import-bar input { background: transparent; border: none; height: auto; }
+    .import-bar input:focus { box-shadow: none; background: transparent; }
 
-    /* --- DYNAMIC LISTS --- */
-    .list-item {
-        background: #232d42;
+    /* 2. Image Preview Section */
+    .cover-section {
+        display: flex;
+        gap: 15px;
+        background: rgba(0,0,0,0.2);
         padding: 15px;
         border-radius: var(--radius);
-        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .preview-box {
+        width: 110px;
+        height: 160px;
+        background: #000;
+        border-radius: var(--radius);
+        overflow: hidden;
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .preview-box img { width: 100%; height: 100%; object-fit: cover; }
+    .preview-box i { font-size: 2rem; color: var(--text-muted); opacity: 0.3; }
+
+    /* 3. Dynamic Lists (Seasons/Episodes) */
+    .list-item {
+        background: #232d42;
+        padding: 12px;
+        border-radius: var(--radius);
+        margin-bottom: 10px;
         border: 1px solid rgba(255,255,255,0.05);
         animation: fadeIn 0.2s ease;
     }
@@ -171,443 +204,438 @@
         font-weight: 700; margin-bottom: 8px; margin-top: 12px; display: flex; align-items: center; gap: 5px;
     }
 
-    /* --- OUTPUT --- */
-    #output {
+    /* 4. Search Dropdown */
+    #searchResults {
+        position: absolute;
+        top: 85px; /* Adjust based on input height */
+        left: 24px;
+        right: 24px;
+        background: var(--bg-card);
+        border: 1px solid var(--primary);
+        border-radius: var(--radius);
+        z-index: 100;
+        max-height: 300px;
+        overflow-y: auto;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        display: none;
+    }
+    .search-result-item {
+        padding: 12px;
+        display: flex;
+        gap: 12px;
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .search-result-item:hover { background: var(--bg-input); }
+    .search-result-item img { width: 40px; height: 60px; object-fit: cover; border-radius: 4px; }
+
+    /* 5. Status Toast */
+    #statusMsg { font-size: 0.85rem; font-weight: 600; margin-top: 5px; min-height: 20px; }
+
+    /* Code Output */
+    #outputCode {
         font-family: 'Consolas', monospace;
         font-size: 12px;
         color: #e2e8f0;
         background: #0f172a;
         border: 1px solid var(--border);
-        min-height: 200px;
     }
-    #loading { color: var(--primary); font-size: 0.85rem; display: none; margin-left: 10px; font-weight: 600;}
-    #copyStatus { color: var(--success); font-size: 0.85rem; margin-left: 10px; font-weight: 600;}
+    
+    /* Copy Status */
+    #copyStatus { color: var(--success); font-weight: 600; font-size: 12px; margin-right: 10px; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
-
 <body>
+
+<!-- IMPORT BAR -->
+<div class="import-bar">
+    <i class='bx bx-edit' style="font-size:1.5rem; color:var(--primary)"></i>
+    <div style="flex:1">
+        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Edit Mode</div>
+        <input type="text" id="importCode" placeholder="Paste your old post HTML code here to edit...">
+    </div>
+    <button onclick="loadFromCode()" class="btn-secondary" style="width:auto; padding: 0 20px;">
+        <i class='bx bx-import'></i> Load Data
+    </button>
+</div>
 
 <div class="container">
 
-    <!-- 1. IMPORT SECTION -->
-    <div class="import-bar">
-        <i class='bx bx-edit' style="font-size:1.5rem; color:var(--primary)"></i>
-        <div style="flex:1">
-            <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Edit Old Post</div>
-            <textarea id="oldPost" placeholder="Paste previously generated HTML here..."></textarea>
-        </div>
-    </div>
-
-    <!-- 2. MAIN DATA -->
+    <!-- 1. DETAILS PANEL -->
     <div class="card">
-        <div class="card-header"><i class='bx bxs-data'></i> TMDB & Details</div>
+        <div class="card-header"><i class='bx bxs-info-circle'></i> Content Info</div>
         
-        <div class="row">
-            <div style="flex: 2;">
-                <label>TMDB ID</label>
-                <div class="row">
-                    <input id="tmdbId" placeholder="e.g. 1399">
-                    <select id="tmdbType" style="flex: 0 0 100px;">
-                        <option value="tv">TV</option>
-                        <option value="movie">Movie</option>
-                    </select>
+        <!-- Search -->
+        <div class="form-group">
+            <div class="row">
+                <input type="text" id="searchQuery" placeholder="Search TMDB (e.g. Breaking Bad)" onkeydown="if(event.key==='Enter') searchTMDB()">
+                <select id="tmdbType" style="width:100px;">
+                    <option value="tv">TV</option>
+                    <option value="movie">Movie</option>
+                </select>
+                <button onclick="searchTMDB()" class="btn-primary btn-icon"><i class='bx bx-search'></i></button>
+            </div>
+            <div id="statusMsg"></div>
+        </div>
+        <div id="searchResults"></div>
+
+        <!-- Cover & Title -->
+        <div class="cover-section">
+            <div class="preview-box">
+                <img id="previewImg" src="" onerror="this.style.display='none';">
+                <i class='bx bx-image' style="display:none"></i>
+            </div>
+            <div class="col" style="display:flex; flex-direction:column; justify-content:center; gap:10px;">
+                <div>
+                    <label>Poster URL</label>
+                    <input type="text" id="posterUrl" onchange="document.getElementById('previewImg').src = this.value; this.style.display='block';">
                 </div>
             </div>
-            <div style="flex: 1; display: flex; align-items: flex-end;">
-                <button type="button" onclick="fetchFromTMDB()" class="btn-secondary" style="width: 100%;">
-                    <i class='bx bx-cloud-download'></i> Fetch Info
-                </button>
-            </div>
-        </div>
-        <span id="loading"><i class='bx bx-loader-alt bx-spin'></i> Fetching...</span>
-
-        <hr style="border: 0; border-top: 1px solid var(--border); margin: 5px 0;">
-
-        <div>
-            <label>Poster URL</label>
-            <input id="posterUrl" placeholder="https://...">
         </div>
 
-        <div>
+        <div class="form-group">
             <label>Description</label>
             <textarea id="description"></textarea>
         </div>
+        
+        <!-- Hidden TMDB ID -->
+        <input type="hidden" id="tmdbId">
     </div>
 
-    <!-- 3. EPISODES -->
+    <!-- 2. CONTENT PANEL -->
     <div class="card">
-        <div class="card-header">
-            <i class='bx bxs-playlist'></i> Episodes & Content
-            <button type="button" class="btn-primary btn-sm" onclick="addEpisode()" style="margin-left: auto;">
-                <i class='bx bx-plus'></i> Add Episode
+        <div class="card-header"><i class='bx bxs-playlist'></i> Media Content</div>
+        
+        <div class="row align-center" style="justify-content:space-between; margin-bottom:10px;">
+            <label style="margin:0">Episode List</label>
+            <button onclick="addEpisode()" class="btn-secondary" style="height:30px; font-size:12px; width:auto; padding:0 10px;">
+                <i class='bx bx-plus'></i> New Episode
             </button>
         </div>
-        
-        <div id="episodes"></div>
+        <div id="episodesContainer"></div>
     </div>
 
-    <!-- 4. EXPORT -->
+    <!-- 3. EXPORT PANEL -->
     <div class="card">
-        <div class="card-header"><i class='bx bxs-code-alt'></i> Generate & Output</div>
+        <div class="card-header"><i class='bx bxs-code-alt'></i> Export</div>
         
-        <button type="button" onclick="generatePost()" class="btn-primary">
-            <i class='bx bx-cog'></i> Generate Blogger HTML
-        </button>
-
-        <div style="position: relative;">
-            <div class="row align-center" style="margin-bottom: 10px; justify-content: space-between;">
-                <label style="margin:0">Output Code</label>
-                <div>
-                    <span id="copyStatus"></span>
-                    <button type="button" class="btn-success btn-sm" onclick="copyOutput()">
-                        <i class='bx bx-copy'></i> Copy HTML
-                    </button>
-                </div>
+        <label>Final HTML Code</label>
+        <textarea id="outputCode" readonly style="height: 300px; margin-bottom:15px;"></textarea>
+        
+        <div class="row">
+            <button onclick="generatePost()" class="btn-primary col">
+                <i class='bx bx-cog'></i> GENERATE HTML
+            </button>
+            <div style="display:flex; align-items:center;">
+                <span id="copyStatus"></span>
+                <button onclick="copyCode()" class="btn-secondary btn-icon" title="Copy Code">
+                    <i class='bx bx-copy'></i>
+                </button>
             </div>
-            <div id="output" class="output"></div>
         </div>
     </div>
 
 </div>
 
 <script>
-let episodeCount = 0;
-let autoCast = [];
+    const API_KEY = "3de80e3c12383c5250000fd8aad71255";
+    let episodeCount = 0;
+    let autoCast = [];
 
-const episodesBox = document.getElementById("episodes");
-const output = document.getElementById("output");
-const loading = document.getElementById("loading");
+    // --- SEARCH TMDB ---
+    async function searchTMDB(){
+        const query = document.getElementById('searchQuery').value;
+        const type = document.getElementById('tmdbType').value;
+        const resContainer = document.getElementById('searchResults');
 
-/* ===== TMDB ===== */
-async function fetchFromTMDB(){
-  if(!tmdbId.value) return alert("TMDB ID required");
-  loading.style.display = "inline-block";
+        if(!query) return;
 
-  try{
-    const r = await fetch(
-      `https://api.themoviedb.org/3/${tmdbType.value}/${tmdbId.value}?api_key=3de80e3c12383c5250000fd8aad71255&append_to_response=credits`
-    );
-    const d = await r.json();
+        resContainer.style.display = 'block';
+        resContainer.innerHTML = '<div style="padding:15px; text-align:center; color:var(--text-muted)">Searching...</div>';
 
-    posterUrl.value = d.poster_path ? `https://image.tmdb.org/t/p/w500${d.poster_path}` : "";
-    description.value = d.overview || "";
-
-    autoCast = [];
-    d.credits?.cast?.slice(0,8).forEach(c=>{
-      autoCast.push({
-        name: c.name,
-        photo: c.profile_path ? `https://image.tmdb.org/t/p/w185${c.profile_path}` : "",
-        title: c.character || ""
-      });
-    });
-
-  }catch(e){
-    alert("TMDB fetch failed");
-  }
-
-  loading.style.display = "none";
-}
-
-/* ===== EPISODES (UPDATED UI) ===== */
-function addEpisode(){
-  episodeCount++;
-  const id = episodeCount;
-
-  // Inserting Premium UI Structure
-  episodesBox.insertAdjacentHTML("beforeend",`
-  <div class="list-item">
-    <div class="row">
-        <div style="flex:1">
-            <label>Episode Number</label>
-            <input id="ep_${id}" placeholder="01">
-        </div>
-        <div style="flex:2">
-            <label>Thumbnail URL</label>
-            <input id="ep_thumb_${id}" placeholder="https://...">
-        </div>
-    </div>
-
-    <div class="sub-section" id="servers_${id}">
-      <div class="section-title"><i class='bx bx-server'></i> Streaming Servers</div>
-      <!-- Server Container -->
-      <button type="button" class="btn-secondary btn-sm" onclick="addServer(${id})" style="width:100%; margin-top:5px;">
-        <i class='bx bx-plus'></i> Add Server
-      </button>
-    </div>
-
-    <div class="sub-section" id="downloads_${id}">
-      <div class="section-title"><i class='bx bx-download'></i> Downloads</div>
-      <!-- Download Container -->
-      <button type="button" class="btn-secondary btn-sm" onclick="addDownload(${id})" style="width:100%; margin-top:5px;">
-        <i class='bx bx-plus'></i> Add Download
-      </button>
-    </div>
-  </div>
-  `);
-}
-
-function addServer(id){
-  const container = document.getElementById(`servers_${id}`);
-  const btn = container.querySelector('button'); // Get button to insert before it
-  
-  const div = document.createElement('div');
-  div.className = 'row';
-  div.style.marginTop = '8px';
-  div.innerHTML = `
-      <input placeholder="Server Name" style="flex:1">
-      <input placeholder="Embed URL" style="flex:2">
-      <button type="button" class="btn-secondary btn-icon" onclick="this.parentElement.remove()" title="Remove">
-        <i class='bx bx-x'></i>
-      </button>
-  `;
-  container.insertBefore(div, btn);
-}
-
-function addDownload(id){
-  const container = document.getElementById(`downloads_${id}`);
-  const btn = container.querySelector('button');
-
-  const div = document.createElement('div');
-  div.className = 'row';
-  div.style.marginTop = '8px';
-  div.innerHTML = `
-      <input placeholder="Source" style="flex:1">
-      <input placeholder="Quality" style="width:80px">
-      <input placeholder="Size" style="width:80px">
-      <input placeholder="URL" style="flex:2">
-      <button type="button" class="btn-secondary btn-icon" onclick="this.parentElement.remove()" title="Remove">
-        <i class='bx bx-x'></i>
-      </button>
-  `;
-  container.insertBefore(div, btn);
-}
-
-/* ===== HELPER: PARSE OLD POST (UNCHANGED LOGIC) ===== */
-function parseOldPost(rawHtml) {
-  const result = {
-    poster: "",
-    description: "",
-    episodes: [],
-    downloads: [],
-    celebrities: [],
-    prefix: "" 
-  };
-
-  if (!rawHtml) return result;
-
-  const scriptIndex = rawHtml.indexOf("<script>");
-  if (scriptIndex !== -1) {
-    result.prefix = rawHtml.substring(0, scriptIndex);
-  }
-
-  try {
-    const episodeMatch = rawHtml.match(/const episodes=\[([\s\S]*?)\];/);
-    if (episodeMatch) {
-      const content = episodeMatch[1].trim();
-      if (content) {
-        const objects = content.split(/},\s*\n/).filter(s => s.trim());
-        objects.forEach(objStr => {
-           try {
-             const cleaned = (objStr.trim().endsWith('}') ? objStr.trim() : objStr.trim() + '}');
-             const epMatch = cleaned.match(/episode:"(.*?)"/);
-             const thumbMatch = cleaned.match(/thumb:"(.*?)"/);
-             const videosMatch = cleaned.match(/videos:\{([\s\S]*?)\}/);
-             
-             if (epMatch) {
-               const videos = {};
-               if (videosMatch) {
-                 const vContent = videosMatch[1].trim();
-                 const vLines = vContent.split(',').filter(l => l.includes(':'));
-                 vLines.forEach(line => {
-                   const parts = line.split(':');
-                   const name = parts[0].trim().replace(/"/g, '');
-                   const url = parts.slice(1).join(':').trim().replace(/"/g, '').replace(/,$/, '');
-                   if (name && url) videos[name] = url;
-                 });
-               }
-               result.episodes.push({
-                 episode: epMatch[1],
-                 thumb: thumbMatch ? thumbMatch[1] : "",
-                 videos: videos
-               });
-             }
-           } catch(e) {}
-        });
-      }
-    }
-
-    const downloadMatch = rawHtml.match(/const downloads=\[([\s\S]*?)\];/);
-    if (downloadMatch) {
-      const content = downloadMatch[1].trim();
-      const objects = content.split(/},\s*\n/).filter(s => s.trim());
-      objects.forEach(objStr => {
         try {
-          const cleaned = (objStr.trim().endsWith('}') ? objStr.trim() : objStr.trim() + '}');
-          const s = cleaned.match(/source:"(.*?)"/);
-          const q = cleaned.match(/quality:"(.*?)"/);
-          const sz = cleaned.match(/size:"(.*?)"/);
-          const u = cleaned.match(/url:"(.*?)"/);
-          if (s && u) {
-            result.downloads.push({
-              source: s[1],
-              quality: q ? q[1] : "",
-              size: sz ? sz[1] : "",
-              url: u[1]
+            const r = await fetch(`https://api.themoviedb.org/3/search/${type}?api_key=${API_KEY}&query=${query}`);
+            const data = await r.json();
+
+            resContainer.innerHTML = '';
+            if(!data.results || data.results.length === 0) {
+                resContainer.innerHTML = '<div style="padding:15px; text-align:center;">No results found.</div>';
+                return;
+            }
+
+            data.results.slice(0, 5).forEach(item => {
+                const title = item.title || item.name;
+                const year = (item.release_date || item.first_air_date || '').split('-')[0];
+                const img = item.poster_path ? `https://image.tmdb.org/t/p/w92${item.poster_path}` : '';
+                
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.innerHTML = `
+                    <img src="${img}" style="background:#000"> 
+                    <div>
+                        <div style="font-weight:600; color:white;">${title}</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted);">${year} • ${type.toUpperCase()}</div>
+                    </div>`;
+                div.onclick = () => selectTMDB(item.id, type);
+                resContainer.appendChild(div);
             });
-          }
-        } catch(e) {}
-      });
+        } catch (e) { resContainer.innerHTML = '<div style="padding:10px; color:var(--danger)">API Error</div>'; }
     }
 
-    const celebMatch = rawHtml.match(/const celebrities=\[([\s\S]*?)\];/);
-    if (celebMatch) {
-      const content = celebMatch[1].trim();
-      const objects = content.split(/},\s*\n/).filter(s => s.trim());
-      objects.forEach(objStr => {
+    async function selectTMDB(id, type) {
+        document.getElementById('searchResults').style.display = 'none';
+        document.getElementById('tmdbId').value = id;
+
         try {
-          const cleaned = (objStr.trim().endsWith('}') ? objStr.trim() : objStr.trim() + '}');
-          const n = cleaned.match(/name:"(.*?)"/);
-          const p = cleaned.match(/photo:"(.*?)"/);
-          const t = cleaned.match(/title:"(.*?)"/);
-          if (n) {
-            result.celebrities.push({
-              name: n[1],
-              photo: p ? p[1] : "",
-              title: t ? t[1] : ""
+            const r = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&append_to_response=credits`);
+            const d = await r.json();
+
+            const poster = d.poster_path ? `https://image.tmdb.org/t/p/w500${d.poster_path}` : "";
+            document.getElementById('posterUrl').value = poster;
+            document.getElementById('previewImg').src = poster;
+            document.getElementById('previewImg').style.display = 'block';
+            document.getElementById('description').value = d.overview || "";
+
+            autoCast = [];
+            d.credits?.cast?.slice(0, 8).forEach(c => {
+                autoCast.push({
+                    name: c.name,
+                    photo: c.profile_path ? `https://image.tmdb.org/t/p/w185${c.profile_path}` : "",
+                    title: c.character || ""
+                });
             });
-          }
-        } catch(e) {}
-      });
+
+        } catch(e) { alert("Error details"); }
     }
-  } catch (e) {
-    console.error("Parsing failed", e);
-  }
 
-  return result;
-}
+    // --- EPISODES UI ---
+    function addEpisode(){
+        episodeCount++;
+        const id = episodeCount;
+        const container = document.getElementById('episodesContainer');
 
-/* ===== GENERATE POST (UNCHANGED LOGIC) ===== */
-function generatePost(){
-  const oldRaw = document.getElementById("oldPost").value.trim();
-  const oldData = parseOldPost(oldRaw);
-  
-  let html = "";
+        container.insertAdjacentHTML("beforeend",`
+        <div class="list-item">
+            <div class="row align-center" style="margin-bottom:10px;">
+                <div style="flex:1; font-weight:700; color:white; display:flex; align-items:center; gap:5px;">
+                    <i class='bx bx-movie-play'></i> EPISODE
+                </div>
+                <button class="btn-danger btn-icon" style="width:30px; height:30px; font-size:1rem;" onclick="this.closest('.list-item').remove()"><i class='bx bx-trash'></i></button>
+            </div>
+            
+            <div class="row">
+                <div style="flex:1">
+                    <input id="ep_${id}" placeholder="Ep No (01)">
+                </div>
+                <div style="flex:2">
+                    <input id="ep_thumb_${id}" placeholder="Thumbnail URL">
+                </div>
+            </div>
 
-  if (!oldRaw) {
-    html += `<img alt="poster" src="${posterUrl.value}" />\n\n`;
-    html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
-    html += `<p>${description.value}</p>\n\n`;
-  } else {
-    html += oldData.prefix;
-  }
+            <div class="sub-section" id="servers_${id}">
+                <div class="section-title"><i class='bx bx-server'></i> Streaming Servers</div>
+                <button type="button" class="btn-secondary btn-sm" onclick="addServer(${id})" style="width:100%; margin-top:5px;">
+                    <i class='bx bx-plus'></i> Add Server
+                </button>
+            </div>
 
-  html += `<script>\n`;
-  
-  if (!oldRaw) {
-    html += `const defaultThumbnail='${posterUrl.value.replace("/w500/","/original/")}';\n\n`;
-  } else {
-    const thumbMatch = oldRaw.match(/const defaultThumbnail='(.*?)';/);
-    if (thumbMatch) {
-      html += `const defaultThumbnail='${thumbMatch[1]}';\n\n`;
-    } else {
-      html += `const defaultThumbnail='${posterUrl.value.replace("/w500/","/original/")}';\n\n`;
+            <div class="sub-section" id="downloads_${id}">
+                <div class="section-title"><i class='bx bx-download'></i> Downloads</div>
+                <button type="button" class="btn-secondary btn-sm" onclick="addDownload(${id})" style="width:100%; margin-top:5px;">
+                    <i class='bx bx-plus'></i> Add Download
+                </button>
+            </div>
+        </div>
+        `);
     }
-  }
 
-  html += `const episodes=[\n`;
-  // Add old episodes
-  oldData.episodes.forEach(ep => {
-    html += `{episode:"${ep.episode}",thumb:"${ep.thumb}",videos:{`;
-    for (let srv in ep.videos) {
-      html += `"${srv}":"${ep.videos[srv]}",`;
+    function addServer(id){
+        const container = document.getElementById(`servers_${id}`);
+        const btn = container.querySelector('button');
+        
+        const div = document.createElement('div');
+        div.className = 'row';
+        div.style.marginTop = '8px';
+        div.innerHTML = `
+            <input placeholder="Name" style="flex:1">
+            <input placeholder="Embed URL" style="flex:2">
+            <button type="button" class="btn-danger btn-icon" onclick="this.parentElement.remove()" title="Remove">
+                <i class='bx bx-x'></i>
+            </button>
+        `;
+        container.insertBefore(div, btn);
     }
-    html += `}},\n`;
-  });
-  // Add new episodes
-  for(let i=1;i<=episodeCount;i++){
-    const ep = document.getElementById(`ep_${i}`);
-    if(!ep || !ep.value) continue; // Check if element exists/removed
 
-    html += `{episode:"${ep.value}",thumb:"${document.getElementById(`ep_thumb_${i}`).value}",videos:{\n`;
-    const serverContainer = document.getElementById(`servers_${i}`);
-    if(serverContainer) {
-        serverContainer.querySelectorAll(".row").forEach(r=>{
-            const v = r.querySelectorAll("input");
-            if(v.length >= 2 && v[0].value && v[1].value){
-                html += `"${v[0].value}":"${v[1].value}",\n`;
-            }
+    function addDownload(id){
+        const container = document.getElementById(`downloads_${id}`);
+        const btn = container.querySelector('button');
+
+        const div = document.createElement('div');
+        div.className = 'row';
+        div.style.marginTop = '8px';
+        div.innerHTML = `
+            <input placeholder="Source" style="flex:1">
+            <input placeholder="Quality" style="width:80px">
+            <input placeholder="Size" style="width:80px">
+            <input placeholder="URL" style="flex:2">
+            <button type="button" class="btn-danger btn-icon" onclick="this.parentElement.remove()" title="Remove">
+                <i class='bx bx-x'></i>
+            </button>
+        `;
+        container.insertBefore(div, btn);
+    }
+
+    // --- GENERATE ---
+    function generatePost(){
+        const oldRaw = document.getElementById("importCode").value.trim();
+        const posterVal = document.getElementById("posterUrl").value;
+        const descVal = document.getElementById("description").value;
+        const oldData = parseOldPost(oldRaw);
+        
+        let html = "";
+
+        if (!oldRaw) {
+            html += `<img alt="poster" src="${posterVal}" />\n\n`;
+            html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
+            html += `<p>${descVal}</p>\n\n`;
+        } else {
+            html += oldData.prefix;
+        }
+
+        html += `<script>\n`;
+        
+        if (!oldRaw) {
+            html += `const defaultThumbnail='${posterVal.replace("/w500/","/original/")}';\n\n`;
+        } else {
+            const thumbMatch = oldRaw.match(/const defaultThumbnail='(.*?)';/);
+            if (thumbMatch) html += `const defaultThumbnail='${thumbMatch[1]}';\n\n`;
+            else html += `const defaultThumbnail='${posterVal.replace("/w500/","/original/")}';\n\n`;
+        }
+
+        // Episodes
+        html += `const episodes=[\n`;
+        oldData.episodes.forEach(ep => {
+            html += `{episode:"${ep.episode}",thumb:"${ep.thumb}",videos:{`;
+            for (let srv in ep.videos) html += `"${srv}":"${ep.videos[srv]}",`;
+            html += `}},\n`;
         });
-    }
-    html += `}},\n`;
-  }
-  html += `];\n\n`;
+        
+        for(let i=1; i<=episodeCount; i++){
+            const epInput = document.getElementById(`ep_${i}`);
+            if(!epInput) continue;
 
-  html += `const downloads=[\n`;
-  // Add old downloads
-  oldData.downloads.forEach(d => {
-    html += `{source:"${d.source}",quality:"${d.quality}",size:"${d.size}",url:"${d.url}"},\n`;
-  });
-  // Add new downloads
-  for(let i=1;i<=episodeCount;i++){
-    const dlContainer = document.getElementById(`downloads_${i}`);
-    if(dlContainer) {
-        dlContainer.querySelectorAll(".row").forEach(r=>{
-            const d = r.querySelectorAll("input");
-            if(d.length >= 4 && d[0].value && d[3].value){
-                html += `{source:"${d[0].value}",quality:"${d[1].value}",size:"${d[2].value}",url:"${d[3].value}"},\n`;
+            html += `{episode:"${epInput.value}",thumb:"${document.getElementById(`ep_thumb_${i}`).value}",videos:{\n`;
+            const srvBox = document.getElementById(`servers_${i}`);
+            if(srvBox) {
+                srvBox.querySelectorAll(".row").forEach(r=>{
+                    const v = r.querySelectorAll("input");
+                    if(v.length >= 2 && v[0].value && v[1].value) html += `"${v[0].value}":"${v[1].value}",\n`;
+                });
             }
+            html += `}},\n`;
+        }
+        html += `];\n\n`;
+
+        // Downloads
+        html += `const downloads=[\n`;
+        oldData.downloads.forEach(d => {
+            html += `{source:"${d.source}",quality:"${d.quality}",size:"${d.size}",url:"${d.url}"},\n`;
         });
+        for(let i=1; i<=episodeCount; i++){
+            const dlBox = document.getElementById(`downloads_${i}`);
+            if(dlBox) {
+                dlBox.querySelectorAll(".row").forEach(r=>{
+                    const d = r.querySelectorAll("input");
+                    if(d.length >= 4 && d[0].value && d[3].value){
+                        html += `{source:"${d[0].value}",quality:"${d[1].value}",size:"${d[2].value}",url:"${d[3].value}"},\n`;
+                    }
+                });
+            }
+        }
+        html += `];\n\n`;
+
+        // Celebrities
+        html += `const celebrities=[\n`;
+        oldData.celebrities.forEach(c => html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`);
+        autoCast.forEach(c=>{
+            const exists = oldData.celebrities.some(oc => oc.name === c.name);
+            if (!exists) html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
+        });
+        html += `];\n<\/script>`;
+
+        document.getElementById('outputCode').value = html;
     }
-  }
-  html += `];\n\n`;
 
-  html += `const celebrities=[\n`;
-  oldData.celebrities.forEach(c => {
-    html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
-  });
-  autoCast.forEach(c=>{
-    const exists = oldData.celebrities.some(oc => oc.name === c.name);
-    if (!exists) {
-      html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
+    function parseOldPost(rawHtml) {
+        const result = { poster: "", description: "", episodes: [], downloads: [], celebrities: [], prefix: "" };
+        if (!rawHtml) return result;
+
+        const scriptIndex = rawHtml.indexOf("<script>");
+        if (scriptIndex !== -1) result.prefix = rawHtml.substring(0, scriptIndex);
+
+        try {
+            const epMatch = rawHtml.match(/const episodes=\[([\s\S]*?)\];/);
+            if (epMatch) {
+            epMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
+                try {
+                    const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
+                    const ep = cln.match(/episode:"(.*?)"/);
+                    const th = cln.match(/thumb:"(.*?)"/);
+                    const vm = cln.match(/videos:\{([\s\S]*?)\}/);
+                    if (ep) {
+                    const vids = {};
+                    if (vm) {
+                        vm[1].trim().split(',').filter(l=>l.includes(':')).forEach(l => {
+                        const p = l.split(':');
+                        const n = p[0].trim().replace(/"/g, '');
+                        const u = p.slice(1).join(':').trim().replace(/"/g, '').replace(/,$/, '');
+                        if(n&&u) vids[n]=u;
+                        });
+                    }
+                    result.episodes.push({ episode: ep[1], thumb: th?th[1]:"", videos: vids });
+                    }
+                } catch(e){}
+            });
+            }
+            const dlMatch = rawHtml.match(/const downloads=\[([\s\S]*?)\];/);
+            if (dlMatch) {
+            dlMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
+                try {
+                const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
+                const s = cln.match(/source:"(.*?)"/); const q = cln.match(/quality:"(.*?)"/);
+                const z = cln.match(/size:"(.*?)"/);   const u = cln.match(/url:"(.*?)"/);
+                if (s && u) result.downloads.push({ source: s[1], quality: q?q[1]:"", size: z?z[1]:"", url: u[1] });
+                } catch(e){}
+            });
+            }
+            const celMatch = rawHtml.match(/const celebrities=\[([\s\S]*?)\];/);
+            if (celMatch) {
+            celMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
+                try {
+                const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
+                const n = cln.match(/name:"(.*?)"/); const p = cln.match(/photo:"(.*?)"/); const t = cln.match(/title:"(.*?)"/);
+                if (n) result.celebrities.push({ name: n[1], photo: p?p[1]:"", title: t?t[1]:"" });
+                } catch(e){}
+            });
+            }
+        } catch (e) { console.error("Parse Error", e); }
+        return result;
     }
-  });
-  html += `];\n<\/script>`;
 
-  output.textContent = html;
-}
+    function loadFromCode(){
+        const val = document.getElementById('importCode').value;
+        if(!val) return alert("Please paste code first.");
+        alert("Code Loaded! New episodes/content will be appended.");
+    }
 
-/* ===== COPY ===== */
-function copyOutput(){
-  const text = output.textContent;
-  const status = document.getElementById("copyStatus");
-
-  if(!text.trim()){
-    status.textContent = "Nothing to copy";
-    return;
-  }
-
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-  textarea.setAttribute("readonly","");
-  textarea.style.position="absolute";
-  textarea.style.left="-9999px";
-
-  document.body.appendChild(textarea);
-  textarea.select();
-  textarea.setSelectionRange(0, textarea.value.length);
-
-  try{
-    document.execCommand("copy");
-    status.textContent = "Copied!";
-  }catch(e){
-    status.textContent = "Copy failed";
-  }
-
-  document.body.removeChild(textarea);
-  setTimeout(()=>status.textContent="",1500);
-}
+    function copyCode(){
+        const t = document.getElementById('outputCode');
+        t.select(); document.execCommand("copy");
+        const s = document.getElementById("copyStatus");
+        s.textContent = "Copied!"; setTimeout(()=>s.textContent="", 2000);
+    }
 </script>
 
 </body>
