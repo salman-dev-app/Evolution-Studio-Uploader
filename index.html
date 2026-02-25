@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evolution Studio Pro</title>
+<title>Evolution Studio Pro (Final Fix)</title>
 <!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -41,13 +41,13 @@
         max-width: 1400px;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr; /* 3 Equal Columns */
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 25px;
         align-items: start;
     }
 
     @media (max-width: 1200px) { .container { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 800px) { .container { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
 
     /* --- CARDS --- */
     .card {
@@ -59,14 +59,13 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-        position: relative;
     }
 
     .card-header {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         padding-bottom: 15px;
         border-bottom: 1px solid var(--border);
         color: white;
@@ -77,9 +76,7 @@
     }
     .card-header i { color: var(--primary); font-size: 1.4rem; }
 
-    /* --- INPUTS & BUTTONS --- */
-    .form-group { position: relative; }
-    
+    /* --- INPUTS --- */
     label {
         display: block;
         color: var(--text-muted);
@@ -89,64 +86,61 @@
         text-transform: uppercase;
     }
 
-    input, select, textarea, button {
+    input, select, textarea {
         width: 100%;
+        height: var(--h-input);
+        background: var(--bg-input);
+        border: 1px solid transparent;
+        color: white;
+        padding: 0 15px;
         border-radius: var(--radius);
         font-family: inherit;
         font-size: 0.95rem;
         transition: all 0.2s;
     }
 
-    input, select, button { height: var(--h-input); }
-
-    input, select, textarea {
-        background: var(--bg-input);
-        border: 1px solid transparent;
-        color: white;
-        padding: 0 15px;
-    }
+    textarea { height: auto; min-height: 120px; padding: 12px; resize: vertical; }
 
     input:focus, select:focus, textarea:focus {
         border-color: var(--primary);
         background: #1e293b;
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
     }
 
-    textarea { padding: 12px; min-height: 100px; resize: vertical; }
-
-    /* --- BUTTON STYLES --- */
+    /* --- BUTTONS --- */
     button {
+        height: var(--h-input);
         border: none;
+        border-radius: var(--radius);
         cursor: pointer;
         font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
+        font-size: 0.9rem;
+        transition: all 0.2s;
     }
-    
     button:active { transform: translateY(1px); }
 
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; }
+    .btn-primary:hover { opacity: 0.9; }
     
     .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
     .btn-secondary:hover { background: var(--bg-input); color: white; border-color: var(--text-muted); }
     
     .btn-icon { width: var(--h-input); flex-shrink: 0; padding: 0; font-size: 1.2rem; }
+    .btn-sm { height: 36px; font-size: 0.8rem; padding: 0 15px; }
     
     .btn-success { background: var(--success); color: #0f172a; }
     .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
     .btn-danger:hover { background: var(--danger); color: white; }
 
-    /* --- FLEX UTILITIES --- */
     .row { display: flex; gap: 12px; }
     .col { flex: 1; }
     .align-center { align-items: center; }
 
-    /* --- SPECIFIC COMPONENTS --- */
-    
-    /* 1. Import Bar */
+    /* --- IMPORT BAR --- */
     .import-bar {
         max-width: 1400px;
         margin: 0 auto 30px auto;
@@ -161,7 +155,7 @@
     .import-bar input { background: transparent; border: none; height: auto; }
     .import-bar input:focus { box-shadow: none; background: transparent; }
 
-    /* 2. Image Preview Section */
+    /* --- COVER & PREVIEW --- */
     .cover-section {
         display: flex;
         gap: 15px;
@@ -185,31 +179,10 @@
     .preview-box img { width: 100%; height: 100%; object-fit: cover; }
     .preview-box i { font-size: 2rem; color: var(--text-muted); opacity: 0.3; }
 
-    /* 3. Dynamic Lists (Seasons/Episodes) */
-    .list-item {
-        background: #232d42;
-        padding: 12px;
-        border-radius: var(--radius);
-        margin-bottom: 10px;
-        border: 1px solid rgba(255,255,255,0.05);
-        animation: fadeIn 0.2s ease;
-    }
-    .sub-section {
-        margin-top: 10px;
-        padding-left: 15px;
-        border-left: 2px solid var(--border);
-    }
-    .section-title {
-        font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; 
-        font-weight: 700; margin-bottom: 8px; margin-top: 12px; display: flex; align-items: center; gap: 5px;
-    }
-
-    /* 4. Search Dropdown */
+    /* --- SEARCH RESULTS --- */
     #searchResults {
         position: absolute;
-        top: 85px; /* Adjust based on input height */
-        left: 24px;
-        right: 24px;
+        top: 85px; left: 24px; right: 24px;
         background: var(--bg-card);
         border: 1px solid var(--primary);
         border-radius: var(--radius);
@@ -230,10 +203,27 @@
     .search-result-item:hover { background: var(--bg-input); }
     .search-result-item img { width: 40px; height: 60px; object-fit: cover; border-radius: 4px; }
 
-    /* 5. Status Toast */
-    #statusMsg { font-size: 0.85rem; font-weight: 600; margin-top: 5px; min-height: 20px; }
+    /* --- LIST ITEMS --- */
+    .list-item {
+        background: #232d42;
+        padding: 15px;
+        border-radius: var(--radius);
+        margin-bottom: 15px;
+        border: 1px solid rgba(255,255,255,0.05);
+        animation: fadeIn 0.2s ease;
+    }
+    .sub-section {
+        margin-top: 12px;
+        padding-left: 15px;
+        border-left: 2px solid var(--border);
+    }
+    .section-title {
+        font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; 
+        font-weight: 700; margin-bottom: 8px; margin-top: 5px; display: flex; align-items: center; gap: 5px;
+    }
+    
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Code Output */
     #outputCode {
         font-family: 'Consolas', monospace;
         font-size: 12px;
@@ -241,8 +231,6 @@
         background: #0f172a;
         border: 1px solid var(--border);
     }
-    
-    /* Copy Status */
     #copyStatus { color: var(--success); font-weight: 600; font-size: 12px; margin-right: 10px; }
 
 </style>
@@ -254,7 +242,7 @@
     <i class='bx bx-edit' style="font-size:1.5rem; color:var(--primary)"></i>
     <div style="flex:1">
         <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Edit Mode</div>
-        <input type="text" id="importCode" placeholder="Paste your old post HTML code here to edit...">
+        <input type="text" id="importCode" placeholder="Paste your old post HTML code here to edit/add episodes...">
     </div>
     <button onclick="loadFromCode()" class="btn-secondary" style="width:auto; padding: 0 20px;">
         <i class='bx bx-import'></i> Load Data
@@ -265,32 +253,32 @@
 
     <!-- 1. DETAILS PANEL -->
     <div class="card">
-        <div class="card-header"><i class='bx bxs-info-circle'></i> Content Info</div>
+        <div class="card-header"><i class='bx bxs-info-circle'></i> Anime Info (TMDB)</div>
         
         <!-- Search -->
-        <div class="form-group">
+        <div class="form-group" style="position:relative;">
+            <label>Search TMDB</label>
             <div class="row">
-                <input type="text" id="searchQuery" placeholder="Search TMDB (e.g. Breaking Bad)" onkeydown="if(event.key==='Enter') searchTMDB()">
+                <input type="text" id="searchQuery" placeholder="Search (e.g. Naruto)" onkeydown="if(event.key==='Enter') searchTMDB()">
                 <select id="tmdbType" style="width:100px;">
                     <option value="tv">TV</option>
                     <option value="movie">Movie</option>
                 </select>
                 <button onclick="searchTMDB()" class="btn-primary btn-icon"><i class='bx bx-search'></i></button>
             </div>
-            <div id="statusMsg"></div>
+            <div id="searchResults"></div>
         </div>
-        <div id="searchResults"></div>
 
-        <!-- Cover & Title -->
+        <!-- Cover & Preview -->
         <div class="cover-section">
             <div class="preview-box">
-                <img id="previewImg" src="" onerror="this.style.display='none';">
+                <img id="previewImg" src="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
                 <i class='bx bx-image' style="display:none"></i>
             </div>
             <div class="col" style="display:flex; flex-direction:column; justify-content:center; gap:10px;">
                 <div>
-                    <label>Poster URL</label>
-                    <input type="text" id="posterUrl" onchange="document.getElementById('previewImg').src = this.value; this.style.display='block';">
+                    <label>Poster URL (High Quality)</label>
+                    <input type="text" id="posterUrl" onchange="updatePreview(this.value)" placeholder="https://...">
                 </div>
             </div>
         </div>
@@ -300,41 +288,52 @@
             <textarea id="description"></textarea>
         </div>
         
-        <!-- Hidden TMDB ID -->
         <input type="hidden" id="tmdbId">
     </div>
 
     <!-- 2. CONTENT PANEL -->
     <div class="card">
-        <div class="card-header"><i class='bx bxs-playlist'></i> Media Content</div>
+        <div class="card-header"><i class='bx bxs-playlist'></i> Episodes & Servers</div>
         
         <div class="row align-center" style="justify-content:space-between; margin-bottom:10px;">
             <label style="margin:0">Episode List</label>
-            <button onclick="addEpisode()" class="btn-secondary" style="height:30px; font-size:12px; width:auto; padding:0 10px;">
+            <button onclick="addEpisode()" class="btn-secondary btn-sm">
                 <i class='bx bx-plus'></i> New Episode
             </button>
         </div>
         <div id="episodesContainer"></div>
     </div>
 
-    <!-- 3. EXPORT PANEL -->
+    <!-- 3. DOWNLOADS & EXPORT -->
     <div class="card">
-        <div class="card-header"><i class='bx bxs-code-alt'></i> Export</div>
+        <div class="card-header"><i class='bx bxs-download'></i> Downloads & Export</div>
         
-        <label>Final HTML Code</label>
-        <textarea id="outputCode" readonly style="height: 300px; margin-bottom:15px;"></textarea>
-        
-        <div class="row">
-            <button onclick="generatePost()" class="btn-primary col">
-                <i class='bx bx-cog'></i> GENERATE HTML
+        <!-- Global Downloads -->
+        <div class="row align-center" style="justify-content:space-between; margin-bottom:10px;">
+            <label style="margin:0">Global Downloads</label>
+            <button onclick="addGlobalDownload()" class="btn-secondary btn-sm">
+                <i class='bx bx-plus'></i> Add Link
             </button>
-            <div style="display:flex; align-items:center;">
+        </div>
+        <div id="downloadsContainer" style="margin-bottom:20px;"></div>
+
+        <hr style="border:0; border-top:1px solid var(--border); margin: 0 0 20px 0;">
+
+        <!-- Export -->
+        <div class="row align-center" style="justify-content:space-between; margin-bottom:10px;">
+            <label style="margin:0">Final Code</label>
+            <div>
                 <span id="copyStatus"></span>
-                <button onclick="copyCode()" class="btn-secondary btn-icon" title="Copy Code">
-                    <i class='bx bx-copy'></i>
+                <button onclick="copyCode()" class="btn-success btn-sm">
+                    <i class='bx bx-copy'></i> Copy
                 </button>
             </div>
         </div>
+        <textarea id="outputCode" readonly style="height: 200px; margin-bottom:15px;"></textarea>
+        
+        <button onclick="generatePost()" class="btn-primary" style="width:100%">
+            <i class='bx bx-cog'></i> GENERATE HTML
+        </button>
     </div>
 
 </div>
@@ -348,20 +347,20 @@
     async function searchTMDB(){
         const query = document.getElementById('searchQuery').value;
         const type = document.getElementById('tmdbType').value;
-        const resContainer = document.getElementById('searchResults');
-
+        const res = document.getElementById('searchResults');
+        
         if(!query) return;
-
-        resContainer.style.display = 'block';
-        resContainer.innerHTML = '<div style="padding:15px; text-align:center; color:var(--text-muted)">Searching...</div>';
+        
+        res.style.display = 'block';
+        res.innerHTML = '<div style="padding:15px; text-align:center; color:var(--text-muted)">Searching...</div>';
 
         try {
             const r = await fetch(`https://api.themoviedb.org/3/search/${type}?api_key=${API_KEY}&query=${query}`);
             const data = await r.json();
 
-            resContainer.innerHTML = '';
+            res.innerHTML = '';
             if(!data.results || data.results.length === 0) {
-                resContainer.innerHTML = '<div style="padding:15px; text-align:center;">No results found.</div>';
+                res.innerHTML = '<div style="padding:15px; text-align:center;">No results found.</div>';
                 return;
             }
 
@@ -379,9 +378,9 @@
                         <div style="font-size:0.8rem; color:var(--text-muted);">${year} • ${type.toUpperCase()}</div>
                     </div>`;
                 div.onclick = () => selectTMDB(item.id, type);
-                resContainer.appendChild(div);
+                res.appendChild(div);
             });
-        } catch (e) { resContainer.innerHTML = '<div style="padding:10px; color:var(--danger)">API Error</div>'; }
+        } catch (e) { res.innerHTML = '<div style="padding:10px; color:var(--danger)">API Error</div>'; }
     }
 
     async function selectTMDB(id, type) {
@@ -392,10 +391,9 @@
             const r = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&append_to_response=credits`);
             const d = await r.json();
 
-            const poster = d.poster_path ? `https://image.tmdb.org/t/p/w500${d.poster_path}` : "";
+            const poster = d.poster_path ? `https://image.tmdb.org/t/p/original${d.poster_path}` : "";
             document.getElementById('posterUrl').value = poster;
-            document.getElementById('previewImg').src = poster;
-            document.getElementById('previewImg').style.display = 'block';
+            updatePreview(poster);
             document.getElementById('description').value = d.overview || "";
 
             autoCast = [];
@@ -410,14 +408,21 @@
         } catch(e) { alert("Error details"); }
     }
 
+    function updatePreview(url) {
+        const img = document.getElementById('previewImg');
+        const icon = img.nextElementSibling;
+        if(url) { img.src = url; img.style.display='block'; icon.style.display='none'; }
+        else { img.style.display='none'; icon.style.display='block'; }
+    }
+
     // --- EPISODES UI ---
-    function addEpisode(){
+    function addEpisode(epVal = '', thumbVal = ''){
         episodeCount++;
         const id = episodeCount;
         const container = document.getElementById('episodesContainer');
 
         container.insertAdjacentHTML("beforeend",`
-        <div class="list-item">
+        <div class="list-item" id="list_item_${id}">
             <div class="row align-center" style="margin-bottom:10px;">
                 <div style="flex:1; font-weight:700; color:white; display:flex; align-items:center; gap:5px;">
                     <i class='bx bx-movie-play'></i> EPISODE
@@ -427,10 +432,10 @@
             
             <div class="row">
                 <div style="flex:1">
-                    <input id="ep_${id}" placeholder="Ep No (01)">
+                    <input id="ep_${id}" value="${epVal}" placeholder="Ep No (01)">
                 </div>
                 <div style="flex:2">
-                    <input id="ep_thumb_${id}" placeholder="Thumbnail URL">
+                    <input id="ep_thumb_${id}" value="${thumbVal}" placeholder="Thumbnail URL">
                 </div>
             </div>
 
@@ -440,18 +445,12 @@
                     <i class='bx bx-plus'></i> Add Server
                 </button>
             </div>
-
-            <div class="sub-section" id="downloads_${id}">
-                <div class="section-title"><i class='bx bx-download'></i> Downloads</div>
-                <button type="button" class="btn-secondary btn-sm" onclick="addDownload(${id})" style="width:100%; margin-top:5px;">
-                    <i class='bx bx-plus'></i> Add Download
-                </button>
-            </div>
         </div>
         `);
+        return id;
     }
 
-    function addServer(id){
+    function addServer(id, name = '', url = ''){
         const container = document.getElementById(`servers_${id}`);
         const btn = container.querySelector('button');
         
@@ -459,8 +458,8 @@
         div.className = 'row';
         div.style.marginTop = '8px';
         div.innerHTML = `
-            <input placeholder="Name" style="flex:1">
-            <input placeholder="Embed URL" style="flex:2">
+            <input placeholder="Name" value="${name}" style="flex:1">
+            <input placeholder="Embed URL" value="${url}" style="flex:2">
             <button type="button" class="btn-danger btn-icon" onclick="this.parentElement.remove()" title="Remove">
                 <i class='bx bx-x'></i>
             </button>
@@ -468,23 +467,22 @@
         container.insertBefore(div, btn);
     }
 
-    function addDownload(id){
-        const container = document.getElementById(`downloads_${id}`);
-        const btn = container.querySelector('button');
-
+    // --- GLOBAL DOWNLOADS UI ---
+    function addGlobalDownload(source='', qual='', size='', url=''){
+        const container = document.getElementById('downloadsContainer');
         const div = document.createElement('div');
         div.className = 'row';
-        div.style.marginTop = '8px';
+        div.style.marginBottom = '8px';
         div.innerHTML = `
-            <input placeholder="Source" style="flex:1">
-            <input placeholder="Quality" style="width:80px">
-            <input placeholder="Size" style="width:80px">
-            <input placeholder="URL" style="flex:2">
+            <input placeholder="Source" value="${source}" style="flex:1">
+            <input placeholder="Quality" value="${qual}" style="width:80px">
+            <input placeholder="Size" value="${size}" style="width:80px">
+            <input placeholder="URL" value="${url}" style="flex:2">
             <button type="button" class="btn-danger btn-icon" onclick="this.parentElement.remove()" title="Remove">
                 <i class='bx bx-x'></i>
             </button>
         `;
-        container.insertBefore(div, btn);
+        container.appendChild(div);
     }
 
     // --- GENERATE ---
@@ -495,36 +493,21 @@
         const oldData = parseOldPost(oldRaw);
         
         let html = "";
-
-        if (!oldRaw) {
-            html += `<img alt="poster" src="${posterVal}" />\n\n`;
-            html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
-            html += `<p>${descVal}</p>\n\n`;
-        } else {
-            html += oldData.prefix;
-        }
+        html += `<img alt="poster" src="${posterVal}" />\n\n`;
+        html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
+        html += `<p>${descVal}</p>\n\n`;
 
         html += `<script>\n`;
-        
-        if (!oldRaw) {
-            html += `const defaultThumbnail='${posterVal.replace("/w500/","/original/")}';\n\n`;
-        } else {
-            const thumbMatch = oldRaw.match(/const defaultThumbnail='(.*?)';/);
-            if (thumbMatch) html += `const defaultThumbnail='${thumbMatch[1]}';\n\n`;
-            else html += `const defaultThumbnail='${posterVal.replace("/w500/","/original/")}';\n\n`;
-        }
+        // High Quality Thumbnail Logic
+        html += `const defaultThumbnail='${posterVal.replace("/w500/","/original/")}';\n\n`;
 
         // Episodes
         html += `const episodes=[\n`;
-        oldData.episodes.forEach(ep => {
-            html += `{episode:"${ep.episode}",thumb:"${ep.thumb}",videos:{`;
-            for (let srv in ep.videos) html += `"${srv}":"${ep.videos[srv]}",`;
-            html += `}},\n`;
-        });
-        
+        // We only generate what is IN THE UI now
         for(let i=1; i<=episodeCount; i++){
             const epInput = document.getElementById(`ep_${i}`);
-            if(!epInput) continue;
+            // Check if element exists (wasn't deleted)
+            if(!epInput || !document.getElementById(`list_item_${i}`)) continue;
 
             html += `{episode:"${epInput.value}",thumb:"${document.getElementById(`ep_thumb_${i}`).value}",videos:{\n`;
             const srvBox = document.getElementById(`servers_${i}`);
@@ -540,85 +523,81 @@
 
         // Downloads
         html += `const downloads=[\n`;
-        oldData.downloads.forEach(d => {
-            html += `{source:"${d.source}",quality:"${d.quality}",size:"${d.size}",url:"${d.url}"},\n`;
-        });
-        for(let i=1; i<=episodeCount; i++){
-            const dlBox = document.getElementById(`downloads_${i}`);
-            if(dlBox) {
-                dlBox.querySelectorAll(".row").forEach(r=>{
-                    const d = r.querySelectorAll("input");
-                    if(d.length >= 4 && d[0].value && d[3].value){
-                        html += `{source:"${d[0].value}",quality:"${d[1].value}",size:"${d[2].value}",url:"${d[3].value}"},\n`;
-                    }
-                });
+        const dlContainer = document.getElementById('downloadsContainer');
+        dlContainer.querySelectorAll(".row").forEach(r => {
+            const d = r.querySelectorAll("input");
+            if(d.length >= 4 && d[0].value && d[3].value){
+                html += `{source:"${d[0].value}",quality:"${d[1].value}",size:"${d[2].value}",url:"${d[3].value}"},\n`;
             }
-        }
+        });
         html += `];\n\n`;
 
         // Celebrities
         html += `const celebrities=[\n`;
-        oldData.celebrities.forEach(c => html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`);
-        autoCast.forEach(c=>{
-            const exists = oldData.celebrities.some(oc => oc.name === c.name);
-            if (!exists) html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`;
-        });
+        // Use autoCast or preserve old ones? Let's use autoCast if available, or keep old
+        if(autoCast.length > 0){
+             autoCast.forEach(c => html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`);
+        } else {
+             oldData.celebrities.forEach(c => html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`);
+        }
         html += `];\n<\/script>`;
 
         document.getElementById('outputCode').value = html;
     }
 
+    // --- PARSE & LOAD ---
     function parseOldPost(rawHtml) {
-        const result = { poster: "", description: "", episodes: [], downloads: [], celebrities: [], prefix: "" };
+        const result = { poster: "", description: "", episodes: [], downloads: [], celebrities: [] };
         if (!rawHtml) return result;
 
-        const scriptIndex = rawHtml.indexOf("<script>");
-        if (scriptIndex !== -1) result.prefix = rawHtml.substring(0, scriptIndex);
+        const imgMatch = rawHtml.match(/<img[^>]+src="([^">]+)"/);
+        if(imgMatch) result.poster = imgMatch[1];
+        const pMatch = rawHtml.match(/<p>([\s\S]*?)<\/p>/);
+        if(pMatch) result.description = pMatch[1];
 
         try {
+            // Episodes
             const epMatch = rawHtml.match(/const episodes=\[([\s\S]*?)\];/);
             if (epMatch) {
-            epMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
-                try {
+                epMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
                     const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
                     const ep = cln.match(/episode:"(.*?)"/);
                     const th = cln.match(/thumb:"(.*?)"/);
                     const vm = cln.match(/videos:\{([\s\S]*?)\}/);
                     if (ep) {
-                    const vids = {};
-                    if (vm) {
-                        vm[1].trim().split(',').filter(l=>l.includes(':')).forEach(l => {
-                        const p = l.split(':');
-                        const n = p[0].trim().replace(/"/g, '');
-                        const u = p.slice(1).join(':').trim().replace(/"/g, '').replace(/,$/, '');
-                        if(n&&u) vids[n]=u;
-                        });
+                        const vids = {};
+                        if (vm) {
+                            vm[1].trim().split(',').filter(l=>l.includes(':')).forEach(l => {
+                                const p = l.split(':');
+                                if(p.length >= 2) {
+                                    const n = p[0].trim().replace(/"/g, '');
+                                    const u = p.slice(1).join(':').trim().replace(/"/g, '').replace(/,$/, '');
+                                    vids[n]=u;
+                                }
+                            });
+                        }
+                        result.episodes.push({ episode: ep[1], thumb: th?th[1]:"", videos: vids });
                     }
-                    result.episodes.push({ episode: ep[1], thumb: th?th[1]:"", videos: vids });
-                    }
-                } catch(e){}
-            });
+                });
             }
+            // Downloads
             const dlMatch = rawHtml.match(/const downloads=\[([\s\S]*?)\];/);
             if (dlMatch) {
-            dlMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
-                try {
-                const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
-                const s = cln.match(/source:"(.*?)"/); const q = cln.match(/quality:"(.*?)"/);
-                const z = cln.match(/size:"(.*?)"/);   const u = cln.match(/url:"(.*?)"/);
-                if (s && u) result.downloads.push({ source: s[1], quality: q?q[1]:"", size: z?z[1]:"", url: u[1] });
-                } catch(e){}
-            });
+                dlMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
+                    const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
+                    const s = cln.match(/source:"(.*?)"/); const q = cln.match(/quality:"(.*?)"/);
+                    const z = cln.match(/size:"(.*?)"/);   const u = cln.match(/url:"(.*?)"/);
+                    if (s && u) result.downloads.push({ source: s[1], quality: q?q[1]:"", size: z?z[1]:"", url: u[1] });
+                });
             }
+            // Celebs
             const celMatch = rawHtml.match(/const celebrities=\[([\s\S]*?)\];/);
             if (celMatch) {
-            celMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
-                try {
-                const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
-                const n = cln.match(/name:"(.*?)"/); const p = cln.match(/photo:"(.*?)"/); const t = cln.match(/title:"(.*?)"/);
-                if (n) result.celebrities.push({ name: n[1], photo: p?p[1]:"", title: t?t[1]:"" });
-                } catch(e){}
-            });
+                celMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
+                    const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
+                    const n = cln.match(/name:"(.*?)"/); const p = cln.match(/photo:"(.*?)"/); const t = cln.match(/title:"(.*?)"/);
+                    if (n) result.celebrities.push({ name: n[1], photo: p?p[1]:"", title: t?t[1]:"" });
+                });
             }
         } catch (e) { console.error("Parse Error", e); }
         return result;
@@ -627,7 +606,38 @@
     function loadFromCode(){
         const val = document.getElementById('importCode').value;
         if(!val) return alert("Please paste code first.");
-        alert("Code Loaded! New episodes/content will be appended.");
+        
+        const data = parseOldPost(val);
+
+        // 1. Fill Header Info
+        if(data.poster) {
+            document.getElementById('posterUrl').value = data.poster;
+            updatePreview(data.poster);
+        }
+        if(data.description) document.getElementById('description').value = data.description;
+
+        // 2. Load Episodes into UI
+        document.getElementById('episodesContainer').innerHTML = ''; // Clear current UI
+        episodeCount = 0; // Reset counter
+        
+        data.episodes.forEach(ep => {
+            const currentId = addEpisode(ep.episode, ep.thumb); // Create Box
+            // Add Servers to this box
+            Object.keys(ep.videos).forEach(key => {
+                addServer(currentId, key, ep.videos[key]);
+            });
+        });
+
+        // 3. Load Downloads into UI
+        document.getElementById('downloadsContainer').innerHTML = ''; // Clear current
+        data.downloads.forEach(dl => {
+            addGlobalDownload(dl.source, dl.quality, dl.size, dl.url);
+        });
+
+        // 4. Load Cast (Internal memory only, not UI)
+        autoCast = data.celebrities; // Store so they are re-added on generate
+
+        alert("Data Loaded! You can now see and edit all episodes/downloads.");
     }
 
     function copyCode(){
