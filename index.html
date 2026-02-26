@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evolution Studio Pro (Final Fix)</title>
-<!-- Fonts & Icons -->
+<title>Evolution Studio Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -36,7 +35,7 @@
         line-height: 1.5;
     }
 
-    /* --- LAYOUT GRID --- */
+    /* --- LAYOUT --- */
     .container {
         max-width: 1400px;
         margin: 0 auto;
@@ -65,7 +64,6 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 5px;
         padding-bottom: 15px;
         border-bottom: 1px solid var(--border);
         color: white;
@@ -96,10 +94,10 @@
         border-radius: var(--radius);
         font-family: inherit;
         font-size: 0.95rem;
-        transition: all 0.2s;
+        transition: 0.2s;
     }
 
-    textarea { height: auto; min-height: 120px; padding: 12px; resize: vertical; }
+    textarea { height: auto; min-height: 100px; padding: 12px; resize: vertical; }
 
     input:focus, select:focus, textarea:focus {
         border-color: var(--primary);
@@ -119,7 +117,7 @@
         justify-content: center;
         gap: 8px;
         font-size: 0.9rem;
-        transition: all 0.2s;
+        transition: 0.2s;
     }
     button:active { transform: translateY(1px); }
 
@@ -129,14 +127,15 @@
     .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
     .btn-secondary:hover { background: var(--bg-input); color: white; border-color: var(--text-muted); }
     
-    .btn-icon { width: var(--h-input); flex-shrink: 0; padding: 0; font-size: 1.2rem; }
-    .btn-sm { height: 36px; font-size: 0.8rem; padding: 0 15px; }
-    
     .btn-success { background: var(--success); color: #0f172a; }
-    .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+    .btn-danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
     .btn-danger:hover { background: var(--danger); color: white; }
 
-    .row { display: flex; gap: 12px; }
+    .btn-icon { width: var(--h-input); padding: 0; font-size: 1.2rem; flex-shrink: 0; }
+    .btn-sm { height: 32px; font-size: 0.8rem; padding: 0 12px; }
+
+    /* --- UTILS --- */
+    .row { display: flex; gap: 10px; }
     .col { flex: 1; }
     .align-center { align-items: center; }
 
@@ -147,7 +146,7 @@
         background: #111827;
         border: 1px dashed var(--border);
         padding: 15px 20px;
-        border-radius: 12px;
+        border-radius: var(--radius);
         display: flex;
         align-items: center;
         gap: 15px;
@@ -155,7 +154,7 @@
     .import-bar input { background: transparent; border: none; height: auto; }
     .import-bar input:focus { box-shadow: none; background: transparent; }
 
-    /* --- COVER & PREVIEW --- */
+    /* --- PREVIEW --- */
     .cover-section {
         display: flex;
         gap: 15px;
@@ -172,9 +171,7 @@
         overflow: hidden;
         flex-shrink: 0;
         border: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
     }
     .preview-box img { width: 100%; height: 100%; object-fit: cover; }
     .preview-box i { font-size: 2rem; color: var(--text-muted); opacity: 0.3; }
@@ -189,10 +186,10 @@
         z-index: 100;
         max-height: 300px;
         overflow-y: auto;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         display: none;
     }
-    .search-result-item {
+    .search-item {
         padding: 12px;
         display: flex;
         gap: 12px;
@@ -200,17 +197,17 @@
         cursor: pointer;
         transition: 0.2s;
     }
-    .search-result-item:hover { background: var(--bg-input); }
-    .search-result-item img { width: 40px; height: 60px; object-fit: cover; border-radius: 4px; }
+    .search-item:hover { background: var(--bg-input); }
+    .search-item img { width: 40px; height: 60px; object-fit: cover; border-radius: 4px; }
 
-    /* --- LIST ITEMS --- */
+    /* --- LISTS --- */
     .list-item {
         background: #232d42;
         padding: 15px;
         border-radius: var(--radius);
         margin-bottom: 15px;
         border: 1px solid rgba(255,255,255,0.05);
-        animation: fadeIn 0.2s ease;
+        animation: fadeIn 0.3s ease;
     }
     .sub-section {
         margin-top: 12px;
@@ -218,11 +215,11 @@
         border-left: 2px solid var(--border);
     }
     .section-title {
-        font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; 
-        font-weight: 700; margin-bottom: 8px; margin-top: 5px; display: flex; align-items: center; gap: 5px;
+        font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; 
+        font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 5px;
     }
-    
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     #outputCode {
         font-family: 'Consolas', monospace;
@@ -232,7 +229,6 @@
         border: 1px solid var(--border);
     }
     #copyStatus { color: var(--success); font-weight: 600; font-size: 12px; margin-right: 10px; }
-
 </style>
 </head>
 <body>
@@ -242,7 +238,7 @@
     <i class='bx bx-edit' style="font-size:1.5rem; color:var(--primary)"></i>
     <div style="flex:1">
         <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Edit Mode</div>
-        <input type="text" id="importCode" placeholder="Paste your old post HTML code here to edit/add episodes...">
+        <input type="text" id="importCode" placeholder="Paste your old post HTML code here to edit...">
     </div>
     <button onclick="loadFromCode()" class="btn-secondary" style="width:auto; padding: 0 20px;">
         <i class='bx bx-import'></i> Load Data
@@ -251,9 +247,9 @@
 
 <div class="container">
 
-    <!-- 1. DETAILS PANEL -->
+    <!-- COLUMN 1: DETAILS -->
     <div class="card">
-        <div class="card-header"><i class='bx bxs-info-circle'></i> Anime Info (TMDB)</div>
+        <div class="card-header"><i class='bx bxs-data'></i> Info & Details</div>
         
         <!-- Search -->
         <div class="form-group" style="position:relative;">
@@ -269,71 +265,65 @@
             <div id="searchResults"></div>
         </div>
 
-        <!-- Cover & Preview -->
+        <!-- Poster -->
         <div class="cover-section">
             <div class="preview-box">
                 <img id="previewImg" src="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
                 <i class='bx bx-image' style="display:none"></i>
             </div>
             <div class="col" style="display:flex; flex-direction:column; justify-content:center; gap:10px;">
-                <div>
-                    <label>Poster URL (High Quality)</label>
-                    <input type="text" id="posterUrl" onchange="updatePreview(this.value)" placeholder="https://...">
-                </div>
+                <label>Poster URL (High Quality)</label>
+                <input type="text" id="posterUrl" onchange="updatePreview(this.value)" placeholder="https://...">
             </div>
         </div>
 
-        <div class="form-group">
+        <div>
             <label>Description</label>
             <textarea id="description"></textarea>
         </div>
-        
         <input type="hidden" id="tmdbId">
     </div>
 
-    <!-- 2. CONTENT PANEL -->
+    <!-- COLUMN 2: EPISODES -->
     <div class="card">
-        <div class="card-header"><i class='bx bxs-playlist'></i> Episodes & Servers</div>
-        
-        <div class="row align-center" style="justify-content:space-between; margin-bottom:10px;">
-            <label style="margin:0">Episode List</label>
-            <button onclick="addEpisode()" class="btn-secondary btn-sm">
+        <div class="card-header">
+            <i class='bx bxs-playlist'></i> Episodes
+            <button onclick="addEpisode()" class="btn-secondary btn-sm" style="margin-left:auto;">
                 <i class='bx bx-plus'></i> New Episode
             </button>
         </div>
+        
         <div id="episodesContainer"></div>
     </div>
 
-    <!-- 3. DOWNLOADS & EXPORT -->
+    <!-- COLUMN 3: DOWNLOADS & EXPORT -->
     <div class="card">
-        <div class="card-header"><i class='bx bxs-download'></i> Downloads & Export</div>
-        
-        <!-- Global Downloads -->
-        <div class="row align-center" style="justify-content:space-between; margin-bottom:10px;">
-            <label style="margin:0">Global Downloads</label>
-            <button onclick="addGlobalDownload()" class="btn-secondary btn-sm">
+        <div class="card-header">
+            <i class='bx bxs-download'></i> Downloads & Export
+            <button onclick="addGlobalDownload()" class="btn-secondary btn-sm" style="margin-left:auto;">
                 <i class='bx bx-plus'></i> Add Link
             </button>
         </div>
-        <div id="downloadsContainer" style="margin-bottom:20px;"></div>
+        
+        <!-- Global Downloads -->
+        <label>Global Download Links</label>
+        <div id="downloadsContainer" style="margin-bottom:20px; min-height:50px;"></div>
 
-        <hr style="border:0; border-top:1px solid var(--border); margin: 0 0 20px 0;">
+        <hr style="border:0; border-top:1px dashed var(--border); margin: 0 0 20px 0;">
 
         <!-- Export -->
-        <div class="row align-center" style="justify-content:space-between; margin-bottom:10px;">
-            <label style="margin:0">Final Code</label>
-            <div>
-                <span id="copyStatus"></span>
-                <button onclick="copyCode()" class="btn-success btn-sm">
-                    <i class='bx bx-copy'></i> Copy
-                </button>
-            </div>
-        </div>
-        <textarea id="outputCode" readonly style="height: 200px; margin-bottom:15px;"></textarea>
+        <label>Final HTML Code</label>
+        <textarea id="outputCode" readonly style="height: 250px; margin-bottom:15px;"></textarea>
         
-        <button onclick="generatePost()" class="btn-primary" style="width:100%">
-            <i class='bx bx-cog'></i> GENERATE HTML
-        </button>
+        <div class="row">
+            <button onclick="generatePost()" class="btn-primary col">
+                <i class='bx bx-cog'></i> GENERATE HTML
+            </button>
+            <button onclick="copyCode()" class="btn-success btn-icon" title="Copy">
+                <i class='bx bx-copy'></i>
+            </button>
+        </div>
+        <div style="text-align:right; margin-top:5px;"><span id="copyStatus"></span></div>
     </div>
 
 </div>
@@ -343,7 +333,7 @@
     let episodeCount = 0;
     let autoCast = [];
 
-    // --- SEARCH TMDB ---
+    /* ================= TMDB LOGIC ================= */
     async function searchTMDB(){
         const query = document.getElementById('searchQuery').value;
         const type = document.getElementById('tmdbType').value;
@@ -370,13 +360,8 @@
                 const img = item.poster_path ? `https://image.tmdb.org/t/p/w92${item.poster_path}` : '';
                 
                 const div = document.createElement('div');
-                div.className = 'search-result-item';
-                div.innerHTML = `
-                    <img src="${img}" style="background:#000"> 
-                    <div>
-                        <div style="font-weight:600; color:white;">${title}</div>
-                        <div style="font-size:0.8rem; color:var(--text-muted);">${year} • ${type.toUpperCase()}</div>
-                    </div>`;
+                div.className = 'search-item';
+                div.innerHTML = `<img src="${img}"><div><div style="font-weight:600;color:white">${title}</div><div style="font-size:0.8rem;color:var(--text-muted)">${year} • ${type.toUpperCase()}</div></div>`;
                 div.onclick = () => selectTMDB(item.id, type);
                 res.appendChild(div);
             });
@@ -385,17 +370,18 @@
 
     async function selectTMDB(id, type) {
         document.getElementById('searchResults').style.display = 'none';
-        document.getElementById('tmdbId').value = id;
-
+        
         try {
             const r = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&append_to_response=credits`);
             const d = await r.json();
 
+            // High Quality Poster
             const poster = d.poster_path ? `https://image.tmdb.org/t/p/original${d.poster_path}` : "";
             document.getElementById('posterUrl').value = poster;
             updatePreview(poster);
             document.getElementById('description').value = d.overview || "";
 
+            // Auto Cast
             autoCast = [];
             d.credits?.cast?.slice(0, 8).forEach(c => {
                 autoCast.push({
@@ -405,69 +391,65 @@
                 });
             });
 
-        } catch(e) { alert("Error details"); }
+        } catch(e) { alert("Error fetching details"); }
     }
 
     function updatePreview(url) {
         const img = document.getElementById('previewImg');
         const icon = img.nextElementSibling;
-        if(url) { img.src = url; img.style.display='block'; icon.style.display='none'; }
+        if(url){ img.src=url; img.style.display='block'; icon.style.display='none'; }
         else { img.style.display='none'; icon.style.display='block'; }
     }
 
-    // --- EPISODES UI ---
+    /* ================= UI BUILDERS ================= */
+    
+    // 1. Episode Box Builder
     function addEpisode(epVal = '', thumbVal = ''){
         episodeCount++;
         const id = episodeCount;
         const container = document.getElementById('episodesContainer');
 
-        container.insertAdjacentHTML("beforeend",`
-        <div class="list-item" id="list_item_${id}">
+        const div = document.createElement('div');
+        div.className = 'list-item';
+        div.id = `list_item_${id}`;
+        div.innerHTML = `
             <div class="row align-center" style="margin-bottom:10px;">
                 <div style="flex:1; font-weight:700; color:white; display:flex; align-items:center; gap:5px;">
                     <i class='bx bx-movie-play'></i> EPISODE
                 </div>
-                <button class="btn-danger btn-icon" style="width:30px; height:30px; font-size:1rem;" onclick="this.closest('.list-item').remove()"><i class='bx bx-trash'></i></button>
+                <button class="btn-danger btn-icon" style="width:30px; height:30px;" onclick="document.getElementById('list_item_${id}').remove()"><i class='bx bx-trash'></i></button>
             </div>
-            
             <div class="row">
-                <div style="flex:1">
-                    <input id="ep_${id}" value="${epVal}" placeholder="Ep No (01)">
-                </div>
-                <div style="flex:2">
-                    <input id="ep_thumb_${id}" value="${thumbVal}" placeholder="Thumbnail URL">
-                </div>
+                <input id="ep_${id}" value="${epVal}" placeholder="No (01)" style="flex:1">
+                <input id="ep_thumb_${id}" value="${thumbVal}" placeholder="Thumb URL" style="flex:2">
             </div>
-
-            <div class="sub-section" id="servers_${id}">
-                <div class="section-title"><i class='bx bx-server'></i> Streaming Servers</div>
-                <button type="button" class="btn-secondary btn-sm" onclick="addServer(${id})" style="width:100%; margin-top:5px;">
+            <div class="sub-section">
+                <div class="section-title"><i class='bx bx-server'></i> SERVERS</div>
+                <div id="servers_${id}"></div>
+                <button class="btn-secondary btn-sm" style="width:100%; margin-top:5px;" onclick="addServer(${id})">
                     <i class='bx bx-plus'></i> Add Server
                 </button>
             </div>
-        </div>
-        `);
+        `;
+        container.appendChild(div);
         return id;
     }
 
+    // 2. Server Row Builder
     function addServer(id, name = '', url = ''){
         const container = document.getElementById(`servers_${id}`);
-        const btn = container.querySelector('button');
-        
         const div = document.createElement('div');
         div.className = 'row';
         div.style.marginTop = '8px';
         div.innerHTML = `
             <input placeholder="Name" value="${name}" style="flex:1">
             <input placeholder="Embed URL" value="${url}" style="flex:2">
-            <button type="button" class="btn-danger btn-icon" onclick="this.parentElement.remove()" title="Remove">
-                <i class='bx bx-x'></i>
-            </button>
+            <button class="btn-danger btn-icon" onclick="this.parentElement.remove()"><i class='bx bx-x'></i></button>
         `;
-        container.insertBefore(div, btn);
+        container.appendChild(div);
     }
 
-    // --- GLOBAL DOWNLOADS UI ---
+    // 3. Global Download Builder
     function addGlobalDownload(source='', qual='', size='', url=''){
         const container = document.getElementById('downloadsContainer');
         const div = document.createElement('div');
@@ -475,47 +457,51 @@
         div.style.marginBottom = '8px';
         div.innerHTML = `
             <input placeholder="Source" value="${source}" style="flex:1">
-            <input placeholder="Quality" value="${qual}" style="width:80px">
-            <input placeholder="Size" value="${size}" style="width:80px">
+            <input placeholder="Quality" value="${qual}" style="width:70px">
+            <input placeholder="Size" value="${size}" style="width:70px">
             <input placeholder="URL" value="${url}" style="flex:2">
-            <button type="button" class="btn-danger btn-icon" onclick="this.parentElement.remove()" title="Remove">
-                <i class='bx bx-x'></i>
-            </button>
+            <button class="btn-danger btn-icon" onclick="this.parentElement.remove()"><i class='bx bx-x'></i></button>
         `;
         container.appendChild(div);
     }
 
-    // --- GENERATE ---
+    /* ================= GENERATE LOGIC ================= */
     function generatePost(){
         const oldRaw = document.getElementById("importCode").value.trim();
-        const posterVal = document.getElementById("posterUrl").value;
-        const descVal = document.getElementById("description").value;
+        const poster = document.getElementById("posterUrl").value;
+        const desc = document.getElementById("description").value;
         const oldData = parseOldPost(oldRaw);
-        
-        let html = "";
-        html += `<img alt="poster" src="${posterVal}" />\n\n`;
-        html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n\n`;
-        html += `<p>${descVal}</p>\n\n`;
 
+        // Header Structure
+        let html = `<img alt="poster" src="${poster}" />\n`;
+        html += `<iframe class="lazyloaded" data-src="/" src="/" allowfullscreen="true"></iframe>\n`;
+        html += `<p>${desc}</p>\n\n`;
         html += `<script>\n`;
-        // High Quality Thumbnail Logic
-        html += `const defaultThumbnail='${posterVal.replace("/w500/","/original/")}';\n\n`;
+        
+        // Config
+        html += `const defaultThumbnail='${poster.replace("/w500/","/original/")}';\n\n`;
 
         // Episodes
         html += `const episodes=[\n`;
-        // We only generate what is IN THE UI now
-        for(let i=1; i<=episodeCount; i++){
-            const epInput = document.getElementById(`ep_${i}`);
-            // Check if element exists (wasn't deleted)
-            if(!epInput || !document.getElementById(`list_item_${i}`)) continue;
-
-            html += `{episode:"${epInput.value}",thumb:"${document.getElementById(`ep_thumb_${i}`).value}",videos:{\n`;
-            const srvBox = document.getElementById(`servers_${i}`);
-            if(srvBox) {
-                srvBox.querySelectorAll(".row").forEach(r=>{
-                    const v = r.querySelectorAll("input");
-                    if(v.length >= 2 && v[0].value && v[1].value) html += `"${v[0].value}":"${v[1].value}",\n`;
-                });
+        
+        // Loop through DOM elements
+        const epContainer = document.getElementById('episodesContainer');
+        const epItems = epContainer.getElementsByClassName('list-item');
+        
+        for (let item of epItems) {
+            // Extract ID from div id "list_item_X"
+            const id = item.id.replace('list_item_', '');
+            const epNum = document.getElementById(`ep_${id}`).value;
+            const thumb = document.getElementById(`ep_thumb_${id}`).value;
+            
+            html += `{episode:"${epNum}",thumb:"${thumb}",videos:{`;
+            
+            const serverRows = document.getElementById(`servers_${id}`).getElementsByClassName('row');
+            for(let row of serverRows) {
+                const inputs = row.getElementsByTagName('input');
+                if(inputs[0].value && inputs[1].value) {
+                    html += `"${inputs[0].value}":"${inputs[1].value}",`;
+                }
             }
             html += `}},\n`;
         }
@@ -523,56 +509,60 @@
 
         // Downloads
         html += `const downloads=[\n`;
-        const dlContainer = document.getElementById('downloadsContainer');
-        dlContainer.querySelectorAll(".row").forEach(r => {
-            const d = r.querySelectorAll("input");
-            if(d.length >= 4 && d[0].value && d[3].value){
-                html += `{source:"${d[0].value}",quality:"${d[1].value}",size:"${d[2].value}",url:"${d[3].value}"},\n`;
+        const dlRows = document.getElementById('downloadsContainer').getElementsByClassName('row');
+        for(let row of dlRows) {
+            const inps = row.getElementsByTagName('input');
+            if(inps[0].value && inps[3].value){
+                html += `{source:"${inps[0].value}",quality:"${inps[1].value}",size:"${inps[2].value}",url:"${inps[3].value}"},\n`;
             }
-        });
+        }
         html += `];\n\n`;
 
         // Celebrities
         html += `const celebrities=[\n`;
-        // Use autoCast or preserve old ones? Let's use autoCast if available, or keep old
-        if(autoCast.length > 0){
-             autoCast.forEach(c => html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`);
+        if(autoCast.length > 0) {
+            autoCast.forEach(c => html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`);
         } else {
-             oldData.celebrities.forEach(c => html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`);
+            oldData.celebrities.forEach(c => html += `{name:"${c.name}",photo:"${c.photo}",title:"${c.title}"},\n`);
         }
         html += `];\n<\/script>`;
 
         document.getElementById('outputCode').value = html;
     }
 
-    // --- PARSE & LOAD ---
+    /* ================= PARSER LOGIC ================= */
     function parseOldPost(rawHtml) {
         const result = { poster: "", description: "", episodes: [], downloads: [], celebrities: [] };
         if (!rawHtml) return result;
 
         const imgMatch = rawHtml.match(/<img[^>]+src="([^">]+)"/);
         if(imgMatch) result.poster = imgMatch[1];
+        
         const pMatch = rawHtml.match(/<p>([\s\S]*?)<\/p>/);
         if(pMatch) result.description = pMatch[1];
 
         try {
-            // Episodes
+            // EPISODES (Regex Split)
             const epMatch = rawHtml.match(/const episodes=\[([\s\S]*?)\];/);
             if (epMatch) {
-                epMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
-                    const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
-                    const ep = cln.match(/episode:"(.*?)"/);
-                    const th = cln.match(/thumb:"(.*?)"/);
-                    const vm = cln.match(/videos:\{([\s\S]*?)\}/);
+                const items = epMatch[1].split(/},\s*(?={)/);
+                items.forEach(str => {
+                    const clean = str.replace(/^{/, '').replace(/}$/, '').replace(/,$/, ''); 
+                    
+                    const ep = clean.match(/episode:"(.*?)"/);
+                    const th = clean.match(/thumb:"(.*?)"/);
+                    const vm = clean.match(/videos:\{([\s\S]*?)\}/);
+                    
                     if (ep) {
                         const vids = {};
                         if (vm) {
-                            vm[1].trim().split(',').filter(l=>l.includes(':')).forEach(l => {
-                                const p = l.split(':');
-                                if(p.length >= 2) {
-                                    const n = p[0].trim().replace(/"/g, '');
-                                    const u = p.slice(1).join(':').trim().replace(/"/g, '').replace(/,$/, '');
-                                    vids[n]=u;
+                            // Simple split by comma for objects inside videos
+                            vm[1].split(',').forEach(pair => {
+                                const p = pair.split(':');
+                                if(p.length>=2){
+                                    const k = p[0].replace(/"/g, '').trim();
+                                    const v = p.slice(1).join(':').replace(/"/g, '').trim();
+                                    if(k && v) vids[k]=v;
                                 }
                             });
                         }
@@ -580,26 +570,33 @@
                     }
                 });
             }
-            // Downloads
+
+            // DOWNLOADS
             const dlMatch = rawHtml.match(/const downloads=\[([\s\S]*?)\];/);
             if (dlMatch) {
-                dlMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
-                    const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
-                    const s = cln.match(/source:"(.*?)"/); const q = cln.match(/quality:"(.*?)"/);
-                    const z = cln.match(/size:"(.*?)"/);   const u = cln.match(/url:"(.*?)"/);
-                    if (s && u) result.downloads.push({ source: s[1], quality: q?q[1]:"", size: z?z[1]:"", url: u[1] });
+                const items = dlMatch[1].split(/},\s*(?={)/);
+                items.forEach(str => {
+                    const s = str.match(/source:"(.*?)"/);
+                    const q = str.match(/quality:"(.*?)"/);
+                    const z = str.match(/size:"(.*?)"/);
+                    const u = str.match(/url:"(.*?)"/);
+                    if(s && u) result.downloads.push({ source:s[1], quality:q?q[1]:"", size:z?z[1]:"", url:u[1] });
                 });
             }
-            // Celebs
+
+            // CAST
             const celMatch = rawHtml.match(/const celebrities=\[([\s\S]*?)\];/);
             if (celMatch) {
-                celMatch[1].trim().split(/},\s*\n/).filter(s=>s.trim()).forEach(str => {
-                    const cln = str.trim().endsWith('}') ? str.trim() : str.trim() + '}';
-                    const n = cln.match(/name:"(.*?)"/); const p = cln.match(/photo:"(.*?)"/); const t = cln.match(/title:"(.*?)"/);
-                    if (n) result.celebrities.push({ name: n[1], photo: p?p[1]:"", title: t?t[1]:"" });
+                const items = celMatch[1].split(/},\s*(?={)/);
+                items.forEach(str => {
+                    const n = str.match(/name:"(.*?)"/);
+                    const p = str.match(/photo:"(.*?)"/);
+                    const t = str.match(/title:"(.*?)"/);
+                    if(n) result.celebrities.push({ name:n[1], photo:p?p[1]:"", title:t?t[1]:"" });
                 });
             }
-        } catch (e) { console.error("Parse Error", e); }
+
+        } catch (e) { console.log("Parse error", e); }
         return result;
     }
 
@@ -609,42 +606,44 @@
         
         const data = parseOldPost(val);
 
-        // 1. Fill Header Info
+        // Fill Header
         if(data.poster) {
             document.getElementById('posterUrl').value = data.poster;
             updatePreview(data.poster);
         }
         if(data.description) document.getElementById('description').value = data.description;
 
-        // 2. Load Episodes into UI
-        document.getElementById('episodesContainer').innerHTML = ''; // Clear current UI
-        episodeCount = 0; // Reset counter
+        // Fill Episodes
+        document.getElementById('episodesContainer').innerHTML = ''; // Clear
+        episodeCount = 0;
         
-        data.episodes.forEach(ep => {
-            const currentId = addEpisode(ep.episode, ep.thumb); // Create Box
-            // Add Servers to this box
-            Object.keys(ep.videos).forEach(key => {
-                addServer(currentId, key, ep.videos[key]);
+        if(data.episodes.length > 0) {
+            data.episodes.forEach(ep => {
+                const id = addEpisode(ep.episode, ep.thumb);
+                // Add servers for this episode
+                Object.keys(ep.videos).forEach(k => {
+                    addServer(id, k, ep.videos[k]);
+                });
             });
-        });
+        }
 
-        // 3. Load Downloads into UI
-        document.getElementById('downloadsContainer').innerHTML = ''; // Clear current
-        data.downloads.forEach(dl => {
-            addGlobalDownload(dl.source, dl.quality, dl.size, dl.url);
-        });
+        // Fill Downloads
+        document.getElementById('downloadsContainer').innerHTML = '';
+        if(data.downloads.length > 0) {
+            data.downloads.forEach(dl => {
+                addGlobalDownload(dl.source, dl.quality, dl.size, dl.url);
+            });
+        }
 
-        // 4. Load Cast (Internal memory only, not UI)
-        autoCast = data.celebrities; // Store so they are re-added on generate
+        autoCast = data.celebrities; 
 
-        alert("Data Loaded! You can now see and edit all episodes/downloads.");
+        alert(`Loaded: ${data.episodes.length} Episodes.`);
     }
 
     function copyCode(){
-        const t = document.getElementById('outputCode');
-        t.select(); document.execCommand("copy");
-        const s = document.getElementById("copyStatus");
-        s.textContent = "Copied!"; setTimeout(()=>s.textContent="", 2000);
+        document.getElementById('outputCode').select();
+        document.execCommand('copy');
+        document.getElementById('copyStatus').innerText = "Copied!";
     }
 </script>
 
